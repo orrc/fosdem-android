@@ -64,8 +64,4 @@
 			android:syncable="false" />
 	</application>
 	<uses-sdk  android:targetSdkVersion="4" android:minSdkVersion="3"/>
-	<instrumentation 
-		android:name="android.test.InstrumentationTestRunner"
-		android:targetPackage="org.fosdem"
-		android:label="FOSDEM JUnit" />
 </manifest> 
