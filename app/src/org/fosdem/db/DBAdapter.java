@@ -223,22 +223,29 @@ public class DBAdapter extends ContentProvider {
 	}
 
 	public void persistSchedule(Schedule s, Handler handler) {
-		clearEvents();
-		clearPersons();
-		clearPersonEventLinks();
-		int count = 0;
-		for (Day day : s.getDays()) {
-			for (Room room : day.getRooms()) {
-				for (Event event : room.getEvents()) {
-					addEvent(event);
-					persistPersons(event.getPersons());
-					persistPersonEventLink(event);
-					final Message msg = new Message();
-					msg.what = MSG_EVENT_STORED;
-					msg.arg1 = count++;
-					handler.sendMessage(msg);
+		db.beginTransaction();
+		try {
+			clearEvents();
+			clearPersons();
+			clearPersonEventLinks();
+			int count = 0;
+			for (Day day : s.getDays()) {
+				for (Room room : day.getRooms()) {
+					for (Event event : room.getEvents()) {
+						System.out.println("Event! "+ event);
+						addEvent(event);
+						persistPersons(event.getPersons());
+						persistPersonEventLink(event);
+						final Message msg = new Message();
+						msg.what = MSG_EVENT_STORED;
+						msg.arg1 = count++;
+						handler.sendMessage(msg);
+					}
 				}
 			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
 		}
 	}
 
