@@ -59,8 +59,9 @@ public class ScheduleParseTest extends AndroidTestCase {
 		db.open();
 		try {
 			db.clearEvents();
-			assertTrue(db.getEvents().size() == 0);
+			assertEquals(0, db.getEvents().size());
 
+			// Persist parsed schedule data to DB
 			db.persistSchedule(schedule, new Handler());
 			int total = 0;
 			for (Day day : schedule.getDays()) {
@@ -68,13 +69,13 @@ public class ScheduleParseTest extends AndroidTestCase {
 					total += room.getEvents().size();
 				}
 			}
+
+			// Expect that some events were persisted
+			assertTrue(total > 0);
+
+			// Pull events from DB and assert count is as expected
 			List<Event> events = db.getEvents();
-			Log.v(getClass().getName(), "Event count : " + events.size()
-					+ ", normal total:" + total);
-			assertTrue(total == events.size());
-			assertTrue(events.get(0).getPersons().size()>0);
-		} catch (Exception e) {
-			fail(e.getMessage());
+			assertEquals(total, events.size());
 		} finally {
 			db.close();
 		}
@@ -84,21 +85,13 @@ public class ScheduleParseTest extends AndroidTestCase {
 		DBAdapter db = new DBAdapter(getContext());
 		db.open();
 		try {
+			// Should be 3 Certification events on Saturday
 			List<Event> events = db.getEventsFiltered(null, null,
-					new String[] { "Database" }, null, null, null, null, 0); // FIXME eMich
-			Log.v(getClass().getName(), "Number of filtered events: "
-					+ events.size());
-			// assertTrue(events.size()==3);
-			events = db.getEventsFiltered(null, null, null, null, null, null,
-					new String[] { "English" },0); // FIXME eMich
-			Log.v(getClass().getName(),events.size()+" "+db.getEvents().size());
-			assertTrue(events.size() == db.getEvents().size());
-		} catch (Exception e) {
-			fail(e.getMessage());
+					new String[] { "Certification" }, null, null, null, null, 1);
+			assertEquals(3, events.size());
 		} finally {
 			db.close();
 		}
-
 	}
 
 	public void testScheduleQueriesByDate() {
@@ -115,7 +108,6 @@ public class ScheduleParseTest extends AndroidTestCase {
 			Log.v(getClass().getName(), "Tracks by day: " + tracksByDay.length
 					+ " " + tracksByDay.toString());
 		} finally {
-
 			db.close();
 		}
 	}
