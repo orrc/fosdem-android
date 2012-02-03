@@ -144,22 +144,6 @@ public class DisplayEvent extends Activity {
 
 	}
 
-	private void setImageViewImage(int id, String filename) {
-		if (filename == null) {
-			throw new IllegalArgumentException();
-		}
-
-		try {
-			ImageView iv = (ImageView) findViewById(id);
-			iv.setImageDrawable(FileUtil.fetchCachedDrawable(filename));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	/**
 	 * Loads the contents of the event with into the gui.
 	 * 
@@ -214,8 +198,8 @@ public class DisplayEvent extends Activity {
 		intent.setType("text/plain");
 		String extra = "I'm attending '" + event.getTitle() + "' (Day "
 				+ (event.getDayindex()) + " at "
-				+ event.getStart().getHours() + ":"
-				+ event.getStart().getMinutes() + " @ " + event.getRoom()
+				+ String.format("%02d", event.getStart().getHours()) + ":"
+				+ String.format("%02d", event.getStart().getMinutes()) + " @ " + event.getRoom()
 				+ ") #fosdem";
 		long currentTime = Calendar.getInstance().getTimeInMillis();
 		if (currentTime >= event.getStart().getTime()
