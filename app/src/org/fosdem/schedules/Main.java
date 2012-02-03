@@ -84,23 +84,25 @@ public class Main extends Activity implements ParserEventListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// Handle intents
 		final Intent intent = getIntent();
 		final String queryAction = intent.getAction();
 		if (Intent.ACTION_SEARCH.equals(queryAction)) {
 			EventListActivity.doSearchWithIntent(this, intent);
 			finish();
-		}
-		if (Intent.ACTION_VIEW.equals(queryAction)) {
+		} else if (Intent.ACTION_VIEW.equals(queryAction)) {
 			Intent i = new Intent(this, DisplayEvent.class);
 			i.putExtra(DisplayEvent.ID, Integer
 					.parseInt(intent.getDataString()));
 			startActivity(i);
 			finish();
 		}
-		
+
+		// Notify that "favourites" alarms should be set up
 		Intent initialLoadIntent = new Intent(FavoritesBroadcast.ACTION_FAVORITES_INITIAL_LOAD);
 		sendBroadcast(initialLoadIntent);
 
+		// Set up the UI
 		setContentView(R.layout.main);
 
 		btnDay1 = (Button) findViewById(R.id.btn_day_1);
@@ -114,6 +116,9 @@ public class Main extends Activity implements ParserEventListener,
 
 		tvProgress = (TextView) findViewById(R.id.progress);
 		tvDbVer = (TextView) findViewById(R.id.db_ver);
+
+		// Typing should instantly trigger a search
+		setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
 		// FIXME on first startup
 		// - propose user to update database
@@ -238,7 +243,7 @@ public class Main extends Activity implements ParserEventListener,
 			showTracksForDay(2);
 			break;
 		case R.id.btn_search:
-			// nothing to do as btn is not active
+			onSearchRequested();
 			break;
 		case R.id.btn_favorites:
 			showFavorites();
