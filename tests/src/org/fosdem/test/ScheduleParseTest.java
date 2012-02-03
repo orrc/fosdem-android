@@ -1,6 +1,7 @@
 package org.fosdem.test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,34 +13,40 @@ import org.fosdem.pojo.Event;
 import org.fosdem.pojo.Room;
 import org.fosdem.pojo.Schedule;
 
+import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
 public class ScheduleParseTest extends AndroidTestCase {
-	public static Schedule schedule;
 
-	public void testScheduleParses() {
+	private static Schedule schedule;
+
+	public void testScheduleParses() throws NameNotFoundException {
 		ScheduleParser sp = null;
 		try {
-			sp = new ScheduleParser("http://fosdem.org/2010/schedule/xml");
+			Context context = getContext().createPackageContext("org.fosdem.tests",
+				Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
+			InputStream xml = context.getAssets().open("schedule-2012.xml");
+			sp = new ScheduleParser(xml);
 		} catch (IOException e) {
 			e.printStackTrace();
-			fail("Failed to parse from URL");
+			fail("Failed to parse schedule");
 		}
-		assertTrue(sp != null);
-		Schedule s = null;
+		assertNotNull(sp);
 
+		Schedule s = null;
 		try {
 			s = sp.parse();
 		} catch (ParserException e) {
 			e.printStackTrace();
 			fail("Failed to parse");
 		}
-		assertTrue(s != null);
-		assertTrue(s.getDays() != null);
-		assertTrue(s.getDays().size() == 2);
-		assertTrue(s.getConference().getCity().equals("Brussels"));
+		assertNotNull(s);
+		assertNotNull(s.getDays());
+		assertEquals(2, s.getDays().size());
+		assertEquals("Brussels", s.getConference().getCity());
 		assertTrue(((Day) (s.getDays().toArray()[0])).getRooms().size() > 0);
 		Collection<Room> rooms = ((Day) (s.getDays().toArray()[0])).getRooms();
 		assertTrue(((Room) (rooms.toArray()[0])).getEvents().size() > 0);
