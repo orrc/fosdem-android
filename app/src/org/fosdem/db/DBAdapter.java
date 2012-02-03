@@ -499,44 +499,54 @@ public class DBAdapter extends ContentProvider {
 			String[] tracks, String[] types, String[] tags, String[] rooms,
 			String[] languages, Integer dayIndex) {
 		StringBuilder sb = new StringBuilder();
+		ArrayList<String> arguments = new ArrayList<String>();
+
 		if (tracks != null)
 			for (String track : tracks) {
-				sb.append(" or track='" + track + "'");
+				sb.append(" OR track=?");
+				arguments.add(track);
 			}
 		if (types != null)
 			for (String type : types) {
-				sb.append(" or eventtype='" + type + "'");
+				sb.append(" OR eventtype=?");
+				arguments.add(type);
 			}
 		if (tags != null)
 			for (String tag : tags) {
-				sb.append(" or tag='" + tag + "'");
+				sb.append(" OR tag=?");
+				arguments.add(tag);
 			}
 		if (rooms != null)
 			for (String room : rooms) {
-				sb.append(" or room='" + room + "'");
+				sb.append(" OR room=?");
+				arguments.add(room);
 			}
 		if (languages != null)
 			for (String language : languages) {
-				sb.append(" or language='" + language + "'");
+				sb.append(" OR language=?");
+				arguments.add(language);
 			}
 		if (beginDate != null && endDate != null) {
-			sb.append("and (start>=" + beginDate.getTime() + " and end<="
+			sb.append(" AND (start>=" + beginDate.getTime() + " AND end<="
 					+ endDate.getTime() + ")");
 		}
 		if (dayIndex != null) {
-			sb.append(" and dayindex=" + dayIndex + "");
+			sb.append(" AND dayindex="+ dayIndex);
 		}
+		
 		String where = sb.toString();
-		if (where.startsWith(" or ")) {
+		if (where.startsWith(" OR ")) {
 			where = where.substring(4);
 		}
-		if (where.startsWith(" and ")) {
+		if (where.startsWith(" AND ")) {
 			where = where.substring(5);
 		}
+		String[] whereArgs = arguments.toArray(new String[0]);
+		
 		Log.v(getClass().getName(), where);
 		Cursor c = db.query(TABLE_EVENTS, new String[] { ID, START, DURATION,
 				ROOM, TAG, TITLE, SUBTITLE, TRACK, EVENTTYPE, LANGUAGE,
-				ABSTRACT, DESCRIPTION, DAYINDEX }, where, null, null, null,
+				ABSTRACT, DESCRIPTION, DAYINDEX }, where, whereArgs, null, null,
 				START, null);
 		return getEventsFromCursor(c);
 	}
