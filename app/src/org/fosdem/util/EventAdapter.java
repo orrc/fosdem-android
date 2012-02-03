@@ -33,15 +33,15 @@ public class EventAdapter extends ArrayAdapter<Event> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
-			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.event_list, null);
+			v = LayoutInflater.from(getContext()).inflate(R.layout.event_list, null);
 		}
+
 		Event event = items.get(position);
 		if (event != null) {
-			TextView title = (TextView) v.findViewById(R.id.event_title);
-			TextView speaker = (TextView) v.findViewById(R.id.event_speakers);
-			TextView room = (TextView) v.findViewById(R.id.event_room);
-			TextView time = (TextView) v.findViewById(R.id.event_time);
+			TextView title = (TextView) v.findViewById(R.id.title);
+			TextView speaker = (TextView) v.findViewById(R.id.speakers);
+			TextView room = (TextView) v.findViewById(R.id.room);
+			TextView time = (TextView) v.findViewById(R.id.time);
 			
 			title.setText(event.getTitle());
 			speaker.setText(StringUtil.personsToString(event.getPersons()));
@@ -49,6 +49,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 			time.setText(StringUtil.datesToString(event.getStart(), event.getDuration()));
 			
 		}
+
 		return v;
 	}
 	

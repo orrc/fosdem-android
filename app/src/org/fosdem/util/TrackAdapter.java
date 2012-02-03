@@ -32,19 +32,17 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
-			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.track_list, null);
+			v = LayoutInflater.from(getContext()).inflate(R.layout.track_list, null);
 		}
+
 		Track track = items.get(position);
 		if (track != null) {
-			TextView text1 = (TextView) v.findViewById(R.id.text1);
-			TextView textSmall = (TextView) v.findViewById(R.id.text_small);
-			
-			if (text1 != null && textSmall != null) {
-				text1.setText(track.getName());
-				textSmall.setText(track.getType());
-			}
+			TextView title = (TextView) v.findViewById(R.id.title);
+			title.setText(track.getName());
+			TextView type = (TextView) v.findViewById(R.id.type);
+			type.setText(track.getType());
 		}
+
 		return v;
 	}
 	

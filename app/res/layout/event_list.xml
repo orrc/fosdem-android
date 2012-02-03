@@ -1,80 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/event_row"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:paddingRight="7dip"
-	android:paddingLeft="10dip"
-	android:minHeight="?android:attr/listPreferredItemHeight"
-    >
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/list_item">
 
-    <CheckBox
-        android:id="@+id/event_star"
-        android:layout_width="23dip"
-        android:layout_height="23dip"
-        android:layout_marginTop="7dip"
-        android:layout_marginLeft="7dip"
-        android:layout_alignParentRight="true"
-        android:focusable="false"
-        android:button="@drawable/more_icon"
-        />
+    <TextView
+      style="@style/event_title"
+      android:id="@+id/title" />
 
-	<TextView
-        android:id="@+id/event_title"
-	    android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-    	android:layout_toLeftOf="@id/event_star"
-        android:paddingTop="2dip"
-        android:textSize="16dip"
-		android:textStyle="bold"
-		android:text="title"
-		android:textColor="@drawable/solid_white"
-        />
+    <TextView
+      style="@style/subtitle"
+      android:id="@+id/speakers"
+      android:layout_below="@id/title"
+      android:textStyle="bold" />
 
-	<TextView
-        android:id="@+id/event_speakers"
-	    android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/event_title"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/event_star"
-       android:textStyle="bold"
-		android:textSize="12dip"
-		android:text="speaker"		
-        />
+    <TextView
+      style="@style/subtitle"
+      android:id="@+id/time"
+      android:layout_below="@id/speakers" />
 
-	<TextView
-        android:id="@+id/event_time"
-	    android:layout_width="wrap_content"
-   		android:layout_height="wrap_content"
-		android:layout_below="@id/event_speakers"
-        android:textSize="12dip"
-		android:text="time"
-        />
-
-	<TextView
-        android:id="@+id/event_room"
-	    android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-		android:layout_below="@id/event_speakers"
-   		android:layout_alignParentRight="true"
-        android:paddingBottom="2dip"
-		android:textColor="@drawable/gray_text_color"
-		android:textSize="12dip"
-		android:text="room"
-        />
-
-	    
-
-    <View
-        android:id="@+id/star_delegate"
-        android:layout_width="40dip"
-        android:layout_height="fill_parent"
-        android:layout_marginRight="-5dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/event_title"
-        android:layout_alignBottom="@id/event_room"
-        />
+    <TextView
+      style="@style/subtitle"
+      android:id="@+id/room"
+      android:layout_below="@id/speakers"
+      android:layout_alignParentRight="true" />
 
 </RelativeLayout>

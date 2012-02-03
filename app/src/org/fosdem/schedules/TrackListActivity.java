@@ -36,7 +36,7 @@ public class TrackListActivity extends ListActivity  {
 		super.onCreate(savedInstanceState);
 		// what day should we show? fetch from the parameters or saved instance
 		dayIndex = savedInstanceState != null ? savedInstanceState.getInt(DAY_INDEX) : 0;
-		
+
 		tracks = getTracks();
 		setTitle("Tracks for Day " + dayIndex);
         setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));

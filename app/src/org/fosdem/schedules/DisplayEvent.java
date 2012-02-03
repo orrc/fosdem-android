@@ -42,7 +42,7 @@ public class DisplayEvent extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.displayevent);
+		setContentView(R.layout.event);
 
 		// Get the event from the intent
 		event = getEvent();

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FosdemTheme" parent="@android:style/Theme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowBackground">@color/fosdem_blue</item>
+        <item name="android:listViewStyle">@style/list_view</item>
+    </style>
+
+    <style name="FosdemTheme.NoTitleBar" parent="FosdemTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="main_button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="day_button">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="list_item">
+        <item name="android:minHeight">?android:listPreferredItemHeight</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="title">
+        <item name="android:textColor">@color/title</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="event_title" parent="title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="subtitle">
+        <item name="android:textColor">@color/subtitle</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="list_view" parent="@android:Widget.ListView">
+        <item name="android:cacheColorHint">@color/fosdem_blue</item>
+    </style>
+    
+</resources>
