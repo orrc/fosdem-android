@@ -18,9 +18,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -80,7 +80,7 @@ public class DisplayEvent extends Activity {
 	/**
 	 * Gets the {@link Event} that was specified through the intent or null if
 	 * no or wrongly specified event.
-	 * 
+	 *
 	 * @return The Event or null.
 	 */
 	private Event getEvent() {
@@ -108,7 +108,7 @@ public class DisplayEvent extends Activity {
 	/**
 	 * Helper method to set the text of the {@link TextView} identified by
 	 * specified id.
-	 * 
+	 *
 	 * @param id
 	 *            Id of the view (must be a TextView)
 	 * @param value
@@ -122,7 +122,7 @@ public class DisplayEvent extends Activity {
 			return;
 		}
 
-		tv.setText(value);
+		tv.setText(Html.fromHtml(value));
 	}
 
 	public void prefetchImageViewImageAndShowIt(final String filename) {
@@ -146,7 +146,7 @@ public class DisplayEvent extends Activity {
 
 	/**
 	 * Loads the contents of the event with into the gui.
-	 * 
+	 *
 	 * @param event
 	 *            The event to show
 	 */

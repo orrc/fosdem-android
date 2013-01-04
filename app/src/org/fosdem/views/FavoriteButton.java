@@ -1,10 +1,10 @@
 package org.fosdem.views;
 
+import org.fosdem.R;
 import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
 import org.fosdem.util.UIUtil;
 
-import android.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,22 +22,22 @@ public class FavoriteButton extends ImageView implements OnClickListener {
 	public FavoriteButton(Context context){
 		super(context);
 	}
-	
+
 	public void setEvent(Event event){
 		this.event = event;
 		initialize();
 	}
-	
+
 	public FavoriteButton(Context context, Event event) {
 		super(context);
 		this.event = event;
-		
+
 		initialize();
 	}
-	
+
 	public FavoriteButton(Context context,AttributeSet attributeSet){
 		super(context,attributeSet);
-		this.setImageResource(R.drawable.btn_star_big_off);
+		this.setImageResource(R.drawable.rating_not_important);
 	}
 
 	protected void initialize() {
@@ -59,9 +59,9 @@ public class FavoriteButton extends ImageView implements OnClickListener {
 
 	protected void setImageResource() {
 		if (isFavorite) {
-			this.setImageResource(R.drawable.btn_star_big_on);
+			this.setImageResource(R.drawable.rating_important);
 		} else
-			this.setImageResource(R.drawable.btn_star_big_off);
+			this.setImageResource(R.drawable.rating_not_important);
 	}
 
 	public void onClick(View v) {
@@ -72,12 +72,12 @@ public class FavoriteButton extends ImageView implements OnClickListener {
 			// Unmark
 			db.deleteBookmark(event.getId());
 			UIUtil.showToast(this.getContext(), this.getContext().getString(
-					org.fosdem.R.string.favorites_event_removed));
+					R.string.favorites_event_removed));
 		} else {
 			// Mark
 			db.addBookmark(event);
 			UIUtil.showToast(this.getContext(), this.getContext().getString(
-					org.fosdem.R.string.favorites_event_added));
+					R.string.favorites_event_added));
 		}
 		db.close();
 		isFavorite = !isFavorite;

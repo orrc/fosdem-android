@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="title">#fff</color>
+    <color name="subtitle">#aaa</color>
+    <color name="fosdem_blue">#0b4763</color>
+</resources>

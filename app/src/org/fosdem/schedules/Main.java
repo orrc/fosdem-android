@@ -1,5 +1,6 @@
 package org.fosdem.schedules;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 
 import org.fosdem.R;
@@ -24,8 +25,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +54,7 @@ public class Main extends Activity implements ParserEventListener,
 	private static final int SETTINGS_ID = Menu.FIRST + 2;
 
 	public static final String PREFS = "org.fosdem";
-	public static final String XML_URL = "http://fosdem.org/schedule/xml";
+	public static final String XML_URL = "https://fosdem.org/schedule/xml";
 	public static final String ROOM_IMG_URL_BASE = "http://fosdem.org/2010/map/room/";
 
 	public int counter = 0;
@@ -83,7 +86,7 @@ public class Main extends Activity implements ParserEventListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// Handle intents
 		final Intent intent = getIntent();
 		final String queryAction = intent.getAction();
@@ -153,14 +156,11 @@ public class Main extends Activity implements ParserEventListener,
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		// menu.add(0, SETTINGS_ID, 2,
-		// R.string.menu_settings).setIcon(android.R.drawable.ic_menu_preferences);
-		menu.add(0, UPDATE_ID, 2, R.string.menu_update).setIcon(
-				R.drawable.menu_refresh);
-		menu.add(0, ABOUT_ID, 2, R.string.menu_about).setIcon(
-				android.R.drawable.ic_menu_info_details);
-		menu.add(0, SETTINGS_ID, 2, R.string.menu_settings).setIcon(
-				android.R.drawable.ic_menu_preferences);
+
+		forceActionbarOverflowMenu();
+
+		MenuInflater inf = getMenuInflater();
+		inf.inflate(R.menu.main_menu, menu);
 		return true;
 	}
 
@@ -258,14 +258,20 @@ public class Main extends Activity implements ParserEventListener,
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
-		case UPDATE_ID:
+		case R.id.MENU_UPDATE:
 			showDialog(DIALOG_UPDATE);
 			return true;
-		case ABOUT_ID:
+		case R.id.MENU_ABOUT:
 			showDialog(DIALOG_ABOUT);
 			break;
-		case SETTINGS_ID:
+		case R.id.MENU_SETTINGS:
 			showSettings();
+			break;
+		case R.id.MENU_SEARCH:
+			onSearchRequested();
+			break;
+		case R.id.MENU_FAVORITES:
+			showFavorites();
 			break;
 		}
 		return super.onMenuItemSelected(featureId, item);
@@ -321,7 +327,7 @@ public class Main extends Activity implements ParserEventListener,
 				toast(doneRooms);
 				break;
 			/*case LOAD_BG_START:
-				Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay(); 
+				Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 				Main.this.setRequestedOrientation(display.getOrientation());
 				break;
 			case LOAD_BG_END:
@@ -366,7 +372,7 @@ public class Main extends Activity implements ParserEventListener,
 
 	/**
 	 * Fetch the Date when the Schedule database has been imported
-	 * 
+	 *
 	 * @return Date of the last Database update
 	 */
 	private Date getDBLastUpdated() {
@@ -385,5 +391,19 @@ public class Main extends Activity implements ParserEventListener,
 	public void showSettings() {
 		Intent i = new Intent(this, Preferences.class);
 		startActivity(i);
+	}
+
+	private void forceActionbarOverflowMenu() {
+		// Force overflow control for action bar even if the device has got a physical menu button.
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+			if(menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
