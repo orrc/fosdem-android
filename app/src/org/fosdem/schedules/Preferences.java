@@ -90,6 +90,7 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
 
 		if (preference.getKey().equals(PREF_NOTIFY)) {
 			vibratePref.setEnabled((Boolean) newValue);
+			ledPref.setEnabled((Boolean) newValue);
 			delayPref.setEnabled((Boolean) newValue);
 		}
 		if (preference.getKey().equals(PREF_DELAY)) {

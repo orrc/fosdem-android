@@ -168,10 +168,9 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	 */
 	private Dialog createAboutDialog() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		final View view = getLayoutInflater().inflate(R.layout.about, null,
-				false);
+		final View view = getLayoutInflater().inflate(R.layout.about, null, false);
 		builder.setTitle(getString(R.string.app_name));
-		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setIcon(R.drawable.action_about);
 		builder.setView(view);
 		builder.setPositiveButton(getString(android.R.string.ok), null);
 		builder.setCancelable(true);
@@ -201,7 +200,6 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
-
 						// if none selected, skip
 						if (!(selection[0] || selection[1]))
 							return;
@@ -219,7 +217,6 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 					    	toast("Cannot update, no internet connection available.");
 					    }
 					}
-
 				});
 
 		builder.setNegativeButton(getString(android.R.string.cancel), null);

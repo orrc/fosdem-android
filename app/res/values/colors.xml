@@ -3,4 +3,5 @@
     <color name="title">#fff</color>
     <color name="subtitle">#aaa</color>
     <color name="fosdem_blue">#0b4763</color>
+    <color name="about_text">#fff</color>
 </resources>

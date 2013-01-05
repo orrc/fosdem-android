@@ -67,7 +67,6 @@ public class EventListActivity extends SherlockListActivity {
 
 			registerReceiver(favoritesChangedReceiver, new IntentFilter(
 					FavoritesBroadcast.ACTION_FAVORITES_UPDATE));
-
 		}
 
 		events = getEventList(favorites);
@@ -93,8 +92,7 @@ public class EventListActivity extends SherlockListActivity {
 		super.onListItemClick(l, v, position, id);
 		Event event = (Event) getListView().getItemAtPosition(position);
 
-		Log.d(LOG_TAG, "Event selected: " + event.getId() + " - "
-				+ event.getTitle());
+		Log.d(LOG_TAG, "Event selected: " + event.getId() + " - " + event.getTitle());
 
 		Intent i = new Intent(this, DisplayEvent.class);
 		i.putExtra(DisplayEvent.ID, event.getId());
@@ -109,10 +107,8 @@ public class EventListActivity extends SherlockListActivity {
 	 */
 	private ArrayList<Event> getEventList(Boolean favoritesOnly) {
 
-		if (query == null && trackName == null
-				&& (favoritesOnly == null || !favoritesOnly)) {
-			Log.e(LOG_TAG,
-					"You are loading this class with no valid room parameter");
+		if (query == null && trackName == null && (favoritesOnly == null || !favoritesOnly)) {
+			Log.e(LOG_TAG, "You are loading this class with no valid room parameter");
 			return null;
 		}
 
@@ -122,8 +118,7 @@ public class EventListActivity extends SherlockListActivity {
 			db.open();
 
 			if (trackName != null) {
-				return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(
-						trackName, dayIndex);
+				return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(trackName, dayIndex);
 			} else if (query != null) {
 				String[] queryArgs = new String[] { query };
 				return (ArrayList<Event>) db.getEventsFilteredLike(null, null,
@@ -133,24 +128,21 @@ public class EventListActivity extends SherlockListActivity {
 				Log.e(LOG_TAG, "Getting favorites...");
 
 				SharedPreferences prefs = getSharedPreferences(Main.PREFS, Context.MODE_PRIVATE);
-				Date startDate=prefs.getBoolean(Preferences.PREF_UPCOMING, false)?new Date():null;
+				Date startDate=prefs.getBoolean(Preferences.PREF_UPCOMING, false) ? new Date() : null;
 
 				return db.getFavoriteEvents(startDate);
 			}
 
-			return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(
-					trackName, dayIndex);
+			return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(trackName, dayIndex);
 		} finally {
 			db.close();
 		}
 	}
 
-	public static void doSearchWithIntent(Context context,
-			final Intent queryIntent) {
+	public static void doSearchWithIntent(Context context, final Intent queryIntent) {
 		queryIntent.getStringExtra(SearchManager.QUERY);
 		Intent i = new Intent(context, EventListActivity.class);
-		i.putExtra(EventListActivity.QUERY, queryIntent
-				.getStringExtra(SearchManager.QUERY));
+		i.putExtra(EventListActivity.QUERY, queryIntent.getStringExtra(SearchManager.QUERY));
 		context.startActivity(i);
 	}
 
@@ -171,6 +163,5 @@ public class EventListActivity extends SherlockListActivity {
 		super.onDestroy();
 		if (favorites != null && favorites)
 			unregisterReceiver(favoritesChangedReceiver);
-
 	}
 }

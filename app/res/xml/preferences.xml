@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory android:title="Notifications">
-<CheckBoxPreference
-android:title="Enable notifications"
-android:defaultValue="true"
-android:summary="If checked, this will notify you of upcoming events you favorited"
-android:key="notifyPref" />
-<CheckBoxPreference
-android:title="Vibrate"
-android:defaultValue="true"
-android:summary="Vibrate on notifications"
-android:key="vibratePref" />
-<CheckBoxPreference
-android:title="Flash led"
-android:defaultValue="true"
-android:summary="Blink led on notification"
-android:key="ledPref" />
-<EditTextPreference
-android:title="Notification time"
-android:defaultValue="10"
-android:summary="Delay before getting notified of an upcoming favorite event"
-android:key="delayPref"
-android:inputType="number"
-android:digits="0123456789"
-android:maxLength="3"
-/>
-</PreferenceCategory>
-<PreferenceCategory android:title="Favorites">
-<CheckBoxPreference
-android:title="Only show upcoming"
-android:defaultValue="false"
-android:summary="If checked, this will ony show the upcoming favorites in the list"
-android:key="upcomingPref" />
-</PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_category_notifications" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notifyPref"
+            android:summary="@string/settings_notifications_summary"
+            android:title="@string/settings_notifications_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="vibratePref"
+            android:summary="@string/settings_vibrate_title"
+            android:title="@string/settings_vibrate_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ledPref"
+            android:summary="@string/settings_led_summary"
+            android:title="@string/settings_led_title" />
+        <EditTextPreference
+            android:defaultValue="10"
+            android:digits="0123456789"
+            android:inputType="number"
+            android:key="delayPref"
+            android:maxLength="3"
+            android:summary="@string/settings_notificationtime_summary"
+            android:title="@string/settings_notificationtime_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_category_favorites" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="upcomingPref"
+            android:summary="@string/settings_favupcoming_summary"
+            android:title="@string/settings_favupcoming_title" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

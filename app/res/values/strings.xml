@@ -20,8 +20,8 @@
 	<string name="synchronize_description">Synchronizes the schedule with the one from FOSDEM online.\n\nYou need a connection to the Internet for this to work.</string>
 	<string name="db_ver">Database last updated:</string>
 	<string name="about_text1">FOSDEM Schedule application</string>
-	<string name="about_text2">Programmed by: \nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas.</string>
-	<string name="about_text3">Source available at http://fosdem.org/schedule/phone</string>
+	<string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr and Raphael Kallensee.</string>
+	<string name="about_text3">Licensed under GPL. Source available at https://github.com/rkallensee/fosdem-android</string>
 	<string name="favorites">Favorites</string>
 	<string name="favorites_event_removed">Event removed from favorites</string>
 	<string name="favorites_event_added">Event added to favorites</string>
@@ -31,4 +31,18 @@
 		<item name="updater_dialog_choices_xml">Update schedule contents</item>
 		<item name="updater_dialog_choices_rooms">Preload room images</item>
 	</string-array>
+
+	<!-- SETTINGS -->
+	<string name="settings_category_notifications">Notifications</string>
+	<string name="settings_notifications_title">Enable notifications</string>
+	<string name="settings_notifications_summary">If checked, this will notify you of upcoming events you favorited</string>
+	<string name="settings_vibrate_title">Vibrate</string>
+	<string name="settings_vibrate_summary">Vibrate on notifications</string>
+	<string name="settings_led_title">Flash led</string>
+	<string name="settings_led_summary">Blink led on notification</string>
+	<string name="settings_notificationtime_title">Notification time (minutes)</string>
+	<string name="settings_notificationtime_summary">Delay before getting notified of an upcoming favorite event</string>
+	<string name="settings_category_favorites">Favorites</string>
+	<string name="settings_favupcoming_title">Only show upcoming</string>
+	<string name="settings_favupcoming_summary">If checked, this will ony show the upcoming favorites in the list</string>
 </resources>

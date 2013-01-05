@@ -4,7 +4,7 @@
     <style name="FosdemTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:windowBackground">@color/fosdem_blue</item>
+        <!-- <item name="android:windowBackground">@color/fosdem_blue</item> -->
         <item name="android:listViewStyle">@style/list_view</item>
     </style>
 
@@ -29,7 +29,7 @@
     </style>
 
     <style name="title">
-        <item name="android:textColor">@color/title</item>
+        <!-- <item name="android:textColor">@color/title</item> -->
         <item name="android:textSize">21sp</item>
     </style>
 
@@ -39,12 +39,12 @@
     </style>
 
     <style name="subtitle">
-        <item name="android:textColor">@color/subtitle</item>
+        <!-- <item name="android:textColor">@color/subtitle</item> -->
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="list_view" parent="@android:Widget.ListView">
-        <item name="android:cacheColorHint">@color/fosdem_blue</item>
+        <!-- <item name="android:cacheColorHint">@color/fosdem_blue</item> -->
     </style>
 
 </resources>
