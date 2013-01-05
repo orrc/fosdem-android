@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="FosdemTheme" parent="@android:style/Theme">
+    <style name="FosdemTheme" parent="@style/Theme.Sherlock.Light">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:windowBackground">@color/fosdem_blue</item>
         <item name="android:listViewStyle">@style/list_view</item>
     </style>
 
-    <style name="FosdemTheme.NoTitleBar" parent="FosdemTheme">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <style name="main_button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textSize">20sp</item>
     </style>
-    
+
     <style name="day_button">
         <item name="android:layout_height">80dp</item>
         <item name="android:layout_weight">1</item>
@@ -41,7 +37,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    
+
     <style name="subtitle">
         <item name="android:textColor">@color/subtitle</item>
         <item name="android:textSize">12sp</item>
@@ -50,5 +46,5 @@
     <style name="list_view" parent="@android:Widget.ListView">
         <item name="android:cacheColorHint">@color/fosdem_blue</item>
     </style>
-    
+
 </resources>

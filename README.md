@@ -14,6 +14,12 @@ This is a native Android app for using the FOSDEM schedule offline.
 
 [GPL](http://www.gnu.org/licenses/gpl.html)
 
+## Development
+
+This application uses ActionBarSherlock to provide the action bar for older Android versions. You need to [include it](http://actionbarsherlock.com/usage.html) to build the application. The official documentation says:
+
+> If you’re using the Eclipse Development Environment with the ADT plugin version 0.9.7 or greater you can include ActionBarSherlock as a library project. Create a new Android project in Eclipse using the library/ folder as the existing source. Then, in your project properties, add the created project under the ‘Libraries’ section of the ‘Android’ category.
+
 ## Contributors
 
 ### Original creators

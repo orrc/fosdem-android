@@ -8,10 +8,6 @@
         <item name="android:listViewStyle">@style/list_view</item>
     </style>
 
-    <style name="FosdemTheme.NoTitleBar" parent="FosdemTheme">
-        <!-- <item name="android:windowNoTitle">true</item> -->
-    </style>
-
     <style name="main_button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textSize">20sp</item>

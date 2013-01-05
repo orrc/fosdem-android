@@ -1,6 +1,7 @@
 package org.fosdem.schedules;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 
@@ -12,19 +13,22 @@ import org.fosdem.util.FileUtil;
 import org.fosdem.util.StringUtil;
 import org.fosdem.views.FavoriteButton;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DisplayEvent extends Activity {
+public class DisplayEvent extends SherlockActivity {
 
 	/** Display event action string */
 	public final static String ACTION_DISPLAY_EVENT = "org.fosdem.schedules.DISPLAY_EVENT";
@@ -63,6 +67,19 @@ public class DisplayEvent extends Activity {
 				FavoritesBroadcast.EXTRA_TYPE_REMOVE_NOTIFICATION);
 		intent.putExtra(FavoritesBroadcast.EXTRA_ID, ((long) (event.getId())));
 		sendBroadcast(intent);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	        	onBackPressed();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	public Handler handler = new Handler() {
@@ -178,15 +195,19 @@ public class DisplayEvent extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, SHARE_ID, 2, R.string.share).setIcon(
-				android.R.drawable.ic_menu_share);
+
+		MenuInflater inf = getSupportMenuInflater();
+		inf.inflate(R.menu.event_menu, menu);
+
+		forceActionbarOverflowMenu();
+
 		return true;
 	}
 
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
-		case SHARE_ID:
+		case R.id.MENU_SHARE:
 			share();
 			return true;
 		}
@@ -209,5 +230,19 @@ public class DisplayEvent extends Activity {
 					+ event.getRoom() + ") #fosdem";
 		intent.putExtra(Intent.EXTRA_TEXT, extra);
 		startActivity(Intent.createChooser(intent, getString(R.string.share)));
+	}
+
+	private void forceActionbarOverflowMenu() {
+		// Force overflow control for action bar even if the device has got a physical menu button.
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+			if(menuKeyField != null) {
+				menuKeyField.setAccessible(true);
+				menuKeyField.setBoolean(config, false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

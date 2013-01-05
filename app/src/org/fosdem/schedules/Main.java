@@ -9,7 +9,11 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.listeners.ParserEventListener;
 import org.fosdem.util.StringUtil;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -23,9 +27,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
@@ -33,8 +34,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main extends Activity implements ParserEventListener,
-		OnClickListener {
+public class Main extends SherlockActivity implements ParserEventListener, OnClickListener {
 	public static final String LOG_TAG = Main.class.getName();
 
 	public static final int STARTFETCHING = -1;
@@ -48,10 +48,6 @@ public class Main extends Activity implements ParserEventListener,
 
 	protected static final int DIALOG_ABOUT = 0;
 	protected static final int DIALOG_UPDATE = 1;
-
-	private static final int ABOUT_ID = Menu.FIRST;
-	private static final int UPDATE_ID = Menu.FIRST + 1;
-	private static final int SETTINGS_ID = Menu.FIRST + 2;
 
 	public static final String PREFS = "org.fosdem";
 	public static final String XML_URL = "https://fosdem.org/schedule/xml";
@@ -157,10 +153,11 @@ public class Main extends Activity implements ParserEventListener,
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
+		MenuInflater inf = getSupportMenuInflater();
+		inf.inflate(R.menu.main_menu, menu);
+
 		forceActionbarOverflowMenu();
 
-		MenuInflater inf = getMenuInflater();
-		inf.inflate(R.menu.main_menu, menu);
 		return true;
 	}
 
@@ -322,7 +319,7 @@ public class Main extends Activity implements ParserEventListener,
 				tvProgress.setText("Downloading room images...");
 				break;
 			case ROOMIMGDONE:
-				final String doneRooms = "Room Images downloaded";
+				final String doneRooms = "Room mages downloaded";
 				tvProgress.setText(doneRooms);
 				toast(doneRooms);
 				break;

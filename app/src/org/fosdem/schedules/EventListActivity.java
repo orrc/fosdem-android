@@ -9,7 +9,9 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
 import org.fosdem.util.EventAdapter;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,9 +25,9 @@ import android.widget.ListView;
 
 /**
  * @author Christophe Vandeplas <christophe@vandeplas.com>
- * 
+ *
  */
-public class EventListActivity extends ListActivity {
+public class EventListActivity extends SherlockListActivity {
 
 	public static final String LOG_TAG = EventListActivity.class.getName();
 
@@ -62,16 +64,28 @@ public class EventListActivity extends ListActivity {
 			setTitle("Search for: " + query);
 		if (favorites != null && favorites) {
 			setTitle("Favorites");
-			
+
 			registerReceiver(favoritesChangedReceiver, new IntentFilter(
 					FavoritesBroadcast.ACTION_FAVORITES_UPDATE));
-			
+
 		}
 
 		events = getEventList(favorites);
 		eventAdapter = new EventAdapter(this, R.layout.event_list, events);
 		setListAdapter(eventAdapter);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	        	onBackPressed();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	@Override
@@ -90,7 +104,7 @@ public class EventListActivity extends ListActivity {
 	/**
 	 * Gets the {@link Event} that was specified through the intent or null if
 	 * no or wrongly specified event.
-	 * 
+	 *
 	 * @return The Event or null.
 	 */
 	private ArrayList<Event> getEventList(Boolean favoritesOnly) {
@@ -101,7 +115,7 @@ public class EventListActivity extends ListActivity {
 					"You are loading this class with no valid room parameter");
 			return null;
 		}
-		
+
 		// Load event with specified id from the db
 		final DBAdapter db = new DBAdapter(this);
 		try {
@@ -117,10 +131,10 @@ public class EventListActivity extends ListActivity {
 						null, queryArgs);
 			} else if (favorites != null && favorites) {
 				Log.e(LOG_TAG, "Getting favorites...");
-				
+
 				SharedPreferences prefs = getSharedPreferences(Main.PREFS, Context.MODE_PRIVATE);
 				Date startDate=prefs.getBoolean(Preferences.PREF_UPCOMING, false)?new Date():null;
-				
+
 				return db.getFavoriteEvents(startDate);
 			}
 

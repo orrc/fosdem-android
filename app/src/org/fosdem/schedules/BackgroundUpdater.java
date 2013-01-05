@@ -2,7 +2,6 @@ package org.fosdem.schedules;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Enumeration;
 
 import org.fosdem.db.DBAdapter;
 import org.fosdem.exceptions.ParserException;
@@ -15,15 +14,13 @@ import org.fosdem.util.StringUtil;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.sax.StartElementListener;
-import android.util.Log;
 
 /**
  * @author sandbender
- * 
+ *
  */
 public class BackgroundUpdater implements Runnable {
-	
+
 	private final static Object LOCK = new Object();
 
 	private final Handler handler;
@@ -34,7 +31,7 @@ public class BackgroundUpdater implements Runnable {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param handler
 	 *            Handler that gets messages about progress
 	 * @param parseEventListener
@@ -53,7 +50,7 @@ public class BackgroundUpdater implements Runnable {
 
 	/**
 	 * Sends a message to the handler of the specific type (in arg1)
-	 * 
+	 *
 	 * @param type
 	 */
 	private void sendMessage(int type) {
@@ -64,13 +61,12 @@ public class BackgroundUpdater implements Runnable {
 
 	/**
 	 * Downloads the xml and repopulates the database
-	 * 
+	 *
 	 * @throws ParserException
 	 * @throws IOException
-	 * 
+	 *
 	 */
 	private void updateXml() throws ParserException, IOException {
-		
 		sendMessage(Main.STARTFETCHING);
 
 		// Parse
@@ -130,7 +126,7 @@ public class BackgroundUpdater implements Runnable {
 					updateXml();
 				if (doUpdateRooms)
 					updateRooms();
-				sendMessage(Main.LOAD_BG_END); 
+				sendMessage(Main.LOAD_BG_END);
 			} catch (IOException e) {
 			} catch (ParserException e) {
 			}

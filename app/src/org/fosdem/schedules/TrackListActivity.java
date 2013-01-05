@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.fosdem.schedules;
 
@@ -10,27 +10,30 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Track;
 import org.fosdem.util.TrackAdapter;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.support.v4.app.NavUtils;
 
 /**
  * @author Christophe Vandeplas <christophe@vandeplas.com>
  *
  */
-public class TrackListActivity extends ListActivity  {
+public class TrackListActivity extends SherlockListActivity  {
 
 	public static final String LOG_TAG=TrackListActivity.class.getName();
 
 	public static final String DAY_INDEX = "dayIndex";
-	
+
 	private ArrayList<Track> tracks = null;
 	private int dayIndex = 0;
-    
-	
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,25 +43,38 @@ public class TrackListActivity extends ListActivity  {
 		tracks = getTracks();
 		setTitle("Tracks for Day " + dayIndex);
         setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));
-       
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
+
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            NavUtils.navigateUpFromSameTask(this);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Track track = (Track) getListView().getItemAtPosition(position);
-        
+
         Log.d(LOG_TAG, "Track selected: " + track.getName());
-        
+
         Intent i = new Intent(this, EventListActivity.class);
 		i.putExtra(EventListActivity.TRACK_NAME, track.getName());
 		i.putExtra(EventListActivity.DAY_INDEX, dayIndex);
 		startActivity(i);
     }
-	
+
 	private ArrayList<Track> getTracks() {
 
-		if (dayIndex == 0) { 
+		if (dayIndex == 0) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null)
 				dayIndex = extras.getInt(DAY_INDEX);
@@ -67,7 +83,7 @@ public class TrackListActivity extends ListActivity  {
 				return null;
 			}
 		}
-		
+
 		// Load event with specified id from the db
 		final DBAdapter db = new DBAdapter(this);
 		try {
@@ -82,7 +98,7 @@ public class TrackListActivity extends ListActivity  {
 			db.close();
 		}
 	}
-    
-    
-	
+
+
+
 }

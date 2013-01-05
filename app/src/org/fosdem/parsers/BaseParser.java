@@ -6,7 +6,7 @@ import java.net.URL;
 
 public abstract class BaseParser {
 	protected InputStream stream;
-	
+
 	public InputStream getStream() {
 		return stream;
 	}
@@ -15,14 +15,14 @@ public abstract class BaseParser {
 		this.stream = stream;
 	}
 
-	public BaseParser(InputStream s){
+	public BaseParser(InputStream s) {
 		this.stream = s;
 	}
-	
-	public BaseParser(String url) throws IOException{
+
+	public BaseParser(String url) throws IOException {
 		URL urlObj;
 		urlObj = new URL(url);
 		this.stream = (InputStream)urlObj.getContent();
 	}
-	
+
 }
