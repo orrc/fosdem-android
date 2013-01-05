@@ -329,7 +329,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				tvProgress.setText("Downloading room images...");
 				break;
 			case ROOMIMGDONE:
-				final String doneRooms = "Room mages downloaded";
+				final String doneRooms = "Room images downloaded";
 				tvProgress.setText(doneRooms);
 				toast(doneRooms);
 				break;
@@ -370,8 +370,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	 * Set NOW as the time that the Schedule database has been imported.
 	 */
 	private void setDBLastUpdated() {
-		SharedPreferences.Editor editor = getSharedPreferences(Main.PREFS, 0)
-				.edit();
+		SharedPreferences.Editor editor = getSharedPreferences(Main.PREFS, 0).edit();
 		long timestamp = System.currentTimeMillis() / 1000;
 		editor.putLong("db_last_updated", timestamp);
 		editor.commit(); // Don't forget to commit your edits!!!

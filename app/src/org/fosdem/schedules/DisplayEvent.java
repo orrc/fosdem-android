@@ -190,8 +190,7 @@ public class DisplayEvent extends SherlockActivity {
 
 		// setImageViewImage(R.id.room_image,
 		// StringUtil.roomNameToURL(event.getRoom()));
-		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event
-				.getRoom()));
+		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()));
 	}
 
 	@Override

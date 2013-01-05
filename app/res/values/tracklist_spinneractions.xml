@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tracklist_spinneractions">
+        <item>Tracks for Saturday (Day 1)</item>
+        <item>Tracks for Sunday (Day 2)</item>
+    </string-array>
+</resources>

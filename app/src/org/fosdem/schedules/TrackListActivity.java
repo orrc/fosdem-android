@@ -10,6 +10,8 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Track;
 import org.fosdem.util.TrackAdapter;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -17,14 +19,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
 import android.support.v4.app.NavUtils;
 
 /**
  * @author Christophe Vandeplas <christophe@vandeplas.com>
  *
  */
-public class TrackListActivity extends SherlockListActivity  {
+public class TrackListActivity extends SherlockListActivity implements OnNavigationListener {
 
 	public static final String LOG_TAG=TrackListActivity.class.getName();
 
@@ -33,7 +37,6 @@ public class TrackListActivity extends SherlockListActivity  {
 	private ArrayList<Track> tracks = null;
 	private int dayIndex = 0;
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,11 +44,19 @@ public class TrackListActivity extends SherlockListActivity  {
 		dayIndex = savedInstanceState != null ? savedInstanceState.getInt(DAY_INDEX) : 0;
 
 		tracks = getTracks();
-		setTitle("Tracks for Day " + dayIndex);
         setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        //setTitle("Tracks for Day " + dayIndex);
+        actionBar.setDisplayShowTitleEnabled(false);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
+        	android.R.layout.simple_spinner_dropdown_item);
+        actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+        actionBar.setSelectedNavigationItem(dayIndex - 1);
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -73,7 +84,6 @@ public class TrackListActivity extends SherlockListActivity  {
     }
 
 	private ArrayList<Track> getTracks() {
-
 		if (dayIndex == 0) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null)
@@ -99,6 +109,17 @@ public class TrackListActivity extends SherlockListActivity  {
 		}
 	}
 
+	public boolean onNavigationItemSelected(int position, long itemId) {
+		// String[] strings = getResources().getStringArray(R.array.tracklist_spinneractions);
+		// strings[position]
+		Log.d(LOG_TAG, "selected pos " + (position + 1) + ", current index is "+dayIndex+" !");
+		if ((position + 1) != dayIndex) {
+			dayIndex = position + 1;
+			Log.d(LOG_TAG, "showTracksForDay(" + dayIndex + ");");
+			tracks = getTracks();
+			setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));
+		}
 
-
+	    return true;
+	}
 }
