@@ -48,6 +48,8 @@ public class DisplayEvent extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event);
 
+		forceActionbarOverflowMenu();
+
 		// Get the event from the intent
 		event = getEvent();
 
@@ -198,8 +200,6 @@ public class DisplayEvent extends SherlockActivity {
 
 		MenuInflater inf = getSupportMenuInflater();
 		inf.inflate(R.menu.event_menu, menu);
-
-		forceActionbarOverflowMenu();
 
 		return true;
 	}

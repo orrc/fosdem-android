@@ -83,6 +83,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		forceActionbarOverflowMenu();
+
 		// Handle intents
 		final Intent intent = getIntent();
 		final String queryAction = intent.getAction();
@@ -155,8 +157,6 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 		MenuInflater inf = getSupportMenuInflater();
 		inf.inflate(R.menu.main_menu, menu);
-
-		forceActionbarOverflowMenu();
 
 		return true;
 	}
