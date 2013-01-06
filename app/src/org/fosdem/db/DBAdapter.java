@@ -31,10 +31,10 @@ import android.util.Log;
  * This class can either be used as a content provider or as a standalone DBAdapter.
  */
 public class DBAdapter extends ContentProvider {
-	
+
 	// Message related
 	public static final int MSG_EVENT_STORED = 100;
-	
+
 	// Provider related
 	public static final String PROVIDER_NAME = "org.fosdem.pojo.Event";
 	public static final Uri CONTENT_URI = Uri.parse("content://"
@@ -323,7 +323,7 @@ public class DBAdapter extends ContentProvider {
 		c.close();
 		return count;
 	}
-	
+
 	public long getEventCount() {
 		Cursor c = db.rawQuery("select count(" + ID + ") from "
 				+ TABLE_EVENTS, null);
@@ -404,13 +404,18 @@ public class DBAdapter extends ContentProvider {
 		return getStringFromCursor(trackCursor, ROOM);
 	}
 
-	public ArrayList<Event> getFavoriteEvents(Date fromDate) {
+	protected int[] getFavoriteIds(Date fromDate) {
 		String dateCriteria = null;
 		if (fromDate != null)
 			dateCriteria = START + ">" + fromDate.getTime();
 		Cursor favoriteIdsCursor = db.query(TABLE_FAVORITES,
 				new String[] { ID }, dateCriteria, null, null, null, START);
 		int[] favoriteIds = getIntFromCursor(favoriteIdsCursor, ID);
+		return favoriteIds;
+	}
+
+	public ArrayList<Event> getFavoriteEvents(Date fromDate) {
+		int[] favoriteIds = getFavoriteIds(fromDate);
 		ArrayList<Event> events = new ArrayList<Event>();
 		for (int favoriteId : favoriteIds) {
 			Event event = getEventById(favoriteId);
@@ -533,7 +538,7 @@ public class DBAdapter extends ContentProvider {
 		if (dayIndex != null) {
 			sb.append(" AND dayindex="+ dayIndex);
 		}
-		
+
 		String where = sb.toString();
 		if (where.startsWith(" OR ")) {
 			where = where.substring(4);
@@ -542,7 +547,7 @@ public class DBAdapter extends ContentProvider {
 			where = where.substring(5);
 		}
 		String[] whereArgs = arguments.toArray(new String[0]);
-		
+
 		Log.v(getClass().getName(), where);
 		Cursor c = db.query(TABLE_EVENTS, new String[] { ID, START, DURATION,
 				ROOM, TAG, TITLE, SUBTITLE, TRACK, EVENTTYPE, LANGUAGE,
@@ -605,12 +610,13 @@ public class DBAdapter extends ContentProvider {
 	/**
 	 * Converts a cursor over the events table to a list of {@link Event}s. If
 	 * the cursor is empty, will return an empty list.
-	 * 
+	 *
 	 * @param eventsCursor
 	 *            The cursor.
 	 * @return A list of events.
 	 */
 	protected List<Event> getEventsFromCursor(Cursor eventsCursor) {
+		int[] favoriteIds = getFavoriteIds(null);
 		eventsCursor.moveToFirst();
 		final List<Event> events = new ArrayList<Event>();
 		for (int i = 0; i < eventsCursor.getCount(); i++) {
@@ -640,6 +646,16 @@ public class DBAdapter extends ContentProvider {
 					.getColumnIndex(DESCRIPTION)));
 			event.setDayindex(eventsCursor.getInt(eventsCursor
 					.getColumnIndex(DAYINDEX)));
+
+			Boolean eventIsFavorite = false;
+	        for (final int favoriteId : favoriteIds) {
+	            if (favoriteId == event.getId()) {
+	            	eventIsFavorite = true;
+	                break;
+	            }
+	        }
+	        event.setIsFavorite(eventIsFavorite);
+
 			events.add(event);
 			event.setPersons(getPersonsForEvent(event.getId()));
 			eventsCursor.moveToNext();
@@ -650,7 +666,7 @@ public class DBAdapter extends ContentProvider {
 
 	/**
 	 * Retrieves the event for given id, or null if no such event exists.
-	 * 
+	 *
 	 * @param id
 	 *            The id of the requested event.
 	 * @return The event or null.

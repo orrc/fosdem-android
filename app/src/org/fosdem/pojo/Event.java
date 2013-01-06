@@ -3,20 +3,20 @@ package org.fosdem.pojo;
 /**
  *  This file is part of the FOSDEM Android application.
  *  http://android.fosdem.org
- *  
+ *
  *  Thisis open source software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
- *  
+ *
  *  It is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU General Public License
  *  along with this software.  If not, see <http://www.gnu.org/licenses/>.
- *  
+ *
  *  @author Christophe Vandeplas <christophe@vandeplas.com>
  */
 
@@ -59,6 +59,7 @@ public class Event {
 	private String language;
 	private String abstract_description; // real xml value is abstract
 	private String description;
+	private Boolean isFavorite;
 	private int dayindex;
 	private ArrayList<Person> persons = new ArrayList<Person>();
 	private ArrayList<String> links = new ArrayList<String>();
@@ -189,6 +190,14 @@ public class Event {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
 
 	public ArrayList<Person> getPersons() {

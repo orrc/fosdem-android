@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.fosdem.util;
 
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -28,7 +29,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 		super(context, textViewResourceId, items);
 		this.items = items;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -42,15 +43,19 @@ public class EventAdapter extends ArrayAdapter<Event> {
 			TextView speaker = (TextView) v.findViewById(R.id.speakers);
 			TextView room = (TextView) v.findViewById(R.id.room);
 			TextView time = (TextView) v.findViewById(R.id.time);
-			
+			ImageView favorite = (ImageView) v.findViewById(R.id.favorite);
+
 			title.setText(event.getTitle());
 			speaker.setText(StringUtil.personsToString(event.getPersons()));
 			room.setText(event.getRoom());
 			time.setText(StringUtil.datesToString(event.getStart(), event.getDuration()));
-			
+
+			if (event.isFavorite()) {
+				favorite.setImageDrawable(v.getResources().getDrawable(R.drawable.rating_important));
+			}
 		}
 
 		return v;
 	}
-	
+
 }

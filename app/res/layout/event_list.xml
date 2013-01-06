@@ -7,6 +7,16 @@
       style="@style/event_title"
       android:id="@+id/title" />
 
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_below="@id/title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+		android:layout_width="14sp"
+		android:layout_height="14sp"
+		android:layout_marginTop="3dp"
+		android:scaleType="fitXY" />
+
     <TextView
       style="@style/subtitle"
       android:id="@+id/speakers"
