@@ -16,9 +16,13 @@ This is a native Android app for using the FOSDEM schedule offline.
 
 ## Development
 
-This application uses ActionBarSherlock to provide the action bar for older Android versions. You need to [include it](http://actionbarsherlock.com/usage.html) to build the application. The official documentation says:
+* This application uses ActionBarSherlock to provide the action bar for older Android versions. You need to [include it](http://actionbarsherlock.com/usage.html) to build the application. The official documentation says:
 
 > If you’re using the Eclipse Development Environment with the ADT plugin version 0.9.7 or greater you can include ActionBarSherlock as a library project. Create a new Android project in Eclipse using the library/ folder as the existing source. Then, in your project properties, add the created project under the ‘Libraries’ section of the ‘Android’ category.
+
+* Another dependency is the library [StickyListHeaders](https://github.com/emilsjolander/StickyListHeaders) - you need to include it the same way: download/clone it and add it as an Eclipse project (the /library folder as existing source) and add it as library to the FOSDEM app project.
+
+* The project needs the android-support-v4.jar to build. If your Eclipse doesn't find it on its own, you have to specify its path (it resides in your Android SDK folder as extras/android/support/v4/android-support-v4.jar) in the project settings > Java Build Path > Libraries (via "Add External JARs").
 
 ## Contributors
 

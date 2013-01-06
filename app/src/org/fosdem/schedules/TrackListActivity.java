@@ -112,7 +112,6 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 	public boolean onNavigationItemSelected(int position, long itemId) {
 		// String[] strings = getResources().getStringArray(R.array.tracklist_spinneractions);
 		// strings[position]
-		Log.d(LOG_TAG, "selected pos " + (position + 1) + ", current index is "+dayIndex+" !");
 		if ((position + 1) != dayIndex) {
 			dayIndex = position + 1;
 			Log.d(LOG_TAG, "showTracksForDay(" + dayIndex + ");");

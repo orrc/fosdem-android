@@ -41,6 +41,10 @@
 		<item name="updater_dialog_choices_rooms">Preload room images</item>
 	</string-array>
 
+	<!-- event list -->
+	<string name="eventlist_header_saturday">Saturday (Day 1)</string>
+	<string name="eventlist_header_sunday">Sunday (Day 2)</string>
+
 	<!-- settings -->
 	<string name="settings_category_notifications">Notifications</string>
 	<string name="settings_notifications_title">Enable notifications</string>
