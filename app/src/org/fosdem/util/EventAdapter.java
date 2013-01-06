@@ -52,6 +52,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
 			if (event.isFavorite()) {
 				favorite.setImageDrawable(v.getResources().getDrawable(R.drawable.rating_important));
+			} else {
+				favorite.setImageDrawable(null);
 			}
 		}
 
