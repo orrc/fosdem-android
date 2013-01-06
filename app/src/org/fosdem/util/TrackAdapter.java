@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.fosdem.util;
 
@@ -20,19 +20,19 @@ import android.widget.TextView;
  *
  */
 public class TrackAdapter extends ArrayAdapter<Track> {
-	
+
 	private ArrayList<Track> items;
 
 	public TrackAdapter(Context context, int textViewResourceId, ArrayList<Track> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
-			v = LayoutInflater.from(getContext()).inflate(R.layout.track_list, null);
+			v = LayoutInflater.from(getContext()).inflate(R.layout.track_list_item, null);
 		}
 
 		Track track = items.get(position);
@@ -45,5 +45,5 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 
 		return v;
 	}
-	
+
 }

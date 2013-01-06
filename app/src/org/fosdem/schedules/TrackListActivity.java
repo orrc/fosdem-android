@@ -40,11 +40,13 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.track_list);
+
 		// what day should we show? fetch from the parameters or saved instance
 		dayIndex = savedInstanceState != null ? savedInstanceState.getInt(DAY_INDEX) : 0;
 
 		tracks = getTracks();
-        setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));
+        setListAdapter(new TrackAdapter(this, R.layout.track_list_item, tracks));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -116,7 +118,7 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 			dayIndex = position + 1;
 			Log.d(LOG_TAG, "showTracksForDay(" + dayIndex + ");");
 			tracks = getTracks();
-			setListAdapter(new TrackAdapter(this, R.layout.track_list, tracks));
+			setListAdapter(new TrackAdapter(this, R.layout.track_list_item, tracks));
 		}
 
 	    return true;

@@ -57,13 +57,21 @@
         <item name="android:textSize">21sp</item>
     </style>
 
+    <style name="subtitle">
+        <!-- <item name="android:textColor">@color/subtitle</item> -->
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="event_title" parent="title">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="subtitle">
-        <!-- <item name="android:textColor">@color/subtitle</item> -->
+    <style name="tracklist_title" parent="title">
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="tracklist_subtitle" parent="title">
         <item name="android:textSize">12sp</item>
     </style>
 

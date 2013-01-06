@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/list_item">
+
+    <TextView
+      style="@style/tracklist_title"
+      android:id="@+id/title" />
+
+    <TextView
+      style="@style/tracklist_subtitle"
+      android:id="@+id/type"
+      android:layout_below="@id/title" />
+
+</RelativeLayout>

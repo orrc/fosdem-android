@@ -5,6 +5,6 @@
     <color name="fosdem_blue">#0b4763</color>
     <color name="about_text">#000</color>
     <color name="header_text">#ff33b5e5</color>
-    <color name="list_divider">#ffcc00</color>
+    <color name="list_divider">#e6e6e6</color>
     <color name="list_background">#fff</color>
 </resources>
