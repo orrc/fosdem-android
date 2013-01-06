@@ -70,7 +70,7 @@
 	            android:value="org.fosdem.schedules.Main" />
         </activity>
 
-        <receiver android:name=".broadcast.NotificationReceiver" android:exported="false">
+        <receiver android:name="org.fosdem.broadcast.NotificationReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="org.fosdem.action.favorites_update" />
                 <action android:name="org.fosdem.action.favorites_initial_load"/>

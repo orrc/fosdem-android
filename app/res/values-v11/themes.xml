@@ -11,12 +11,14 @@
     <style name="main_button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:alpha">0.7</item>
     </style>
 
-    <style name="day_button">
+    <style name="day_button" parent="@android:style/Widget.Holo.Light.Button">
         <item name="android:layout_height">80dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:alpha">0.7</item>
     </style>
 
     <style name="list_item">

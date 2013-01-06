@@ -3,6 +3,8 @@
 <resources>
 	<string name="hello">Hello World, Main!</string>
 	<string name="app_name">FOSDEM</string>
+
+	<!-- action bar -->
 	<string name="menu_favorites">Favorites</string>
 	<string name="menu_search">Search</string>
 	<string name="menu_settings">Settings</string>
@@ -11,6 +13,13 @@
 	<string name="menu_update">Update</string>
     <string name="menu_quit">Quit</string>
     <string name="menu_share">Share</string>
+
+    <!-- main view -->
+    <string name="main_saturday">Saturday</string>
+    <string name="main_sunday">Sunday</string>
+    <string name="main_favorites">Favorites</string>
+    <string name="main_search">Search</string>
+
 	<string name="search_label">Search</string>
 	<string name="settings_description">FOSDEM search</string>
 	<string name="menu_test_display_event">Display event</string>
@@ -21,7 +30,7 @@
 	<string name="db_ver">Database last updated:</string>
 	<string name="about_text1">FOSDEM Schedule application</string>
 	<string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr and Raphael Kallensee.</string>
-	<string name="about_text3">Licensed under GPL. Source available at https://github.com/rkallensee/fosdem-android</string>
+	<string name="about_text3">Licensed under GPL. Source available at https://github.com/rkallensee/fosdem-android. The FOSDEM logo and picture are licensed under a CC-BY-SA 2.0 Belgium License.</string>
 	<string name="favorites">Favorites</string>
 	<string name="favorites_event_removed">Event removed from favorites</string>
 	<string name="favorites_event_added">Event added to favorites</string>
@@ -32,7 +41,7 @@
 		<item name="updater_dialog_choices_rooms">Preload room images</item>
 	</string-array>
 
-	<!-- SETTINGS -->
+	<!-- settings -->
 	<string name="settings_category_notifications">Notifications</string>
 	<string name="settings_notifications_title">Enable notifications</string>
 	<string name="settings_notifications_summary">If checked, this will notify you of upcoming events you favorited</string>

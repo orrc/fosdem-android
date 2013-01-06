@@ -1,44 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="@drawable/main_bg">
 
-    <LinearLayout
-      android:id="@+id/btn_box"
-      android:layout_width="fill_parent"
-      android:orientation="horizontal">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
-        <Button
-          style="@style/day_button"
-          android:id="@+id/btn_day_1"
-          android:text="Saturday" />
+	<ImageView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:src="@drawable/home_visual"
+		android:scaleType="centerCrop" />
 
-        <Button
-          style="@style/day_button"
-          android:id="@+id/btn_day_2"
-          android:text="Sunday" />
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp">
 
-    </LinearLayout>
+	    <LinearLayout
+	      android:id="@+id/btn_box"
+	      android:layout_width="fill_parent"
+	      android:orientation="horizontal">
 
-    <Button
-      style="@style/main_button"
-      android:id="@+id/btn_favorites"
-      android:layout_below="@id/btn_box"
-      android:text="@string/favorites" />
+	        <Button
+	          style="@style/day_button"
+	          android:id="@+id/btn_day_1"
+	          android:text="@string/main_saturday" />
 
-    <Button
-      style="@style/main_button"
-      android:id="@+id/btn_search"
-      android:layout_below="@id/btn_favorites"
-      android:text="Search" />
+	        <Button
+	          style="@style/day_button"
+	          android:id="@+id/btn_day_2"
+	          android:text="@string/main_sunday" />
 
-    <TextView
-      android:id="@+id/progress"
-      android:layout_above="@+id/db_ver" />
+	    </LinearLayout>
 
-    <TextView  
-      android:id="@+id/db_ver"
-      android:layout_alignParentBottom="true" />
+	    <LinearLayout
+	      android:id="@+id/btn_box_two"
+	      android:layout_below="@id/btn_box"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:orientation="vertical">
+		    <Button
+		      style="@style/main_button"
+		      android:id="@+id/btn_favorites"
+		      android:text="@string/main_favorites" />
+		    <Button
+		      style="@style/main_button"
+		      android:id="@+id/btn_search"
+		      android:text="@string/main_search" />
+		</LinearLayout>
 
-</RelativeLayout>
+	    <LinearLayout
+	      android:id="@+id/status_box"
+	      android:layout_below="@id/btn_box_two"
+	      android:layout_width="fill_parent"
+	      android:orientation="vertical"
+	      android:layout_alignParentBottom="true"
+	      android:gravity="bottom">
+		    <LinearLayout
+		      android:alpha="0.5"
+		      android:background="#ffffff"
+		      android:padding="5dp"
+		      android:orientation="vertical">
+			    <TextView
+			      android:id="@+id/progress" />
+			    <TextView
+			      android:id="@+id/db_ver" />
+			</LinearLayout>
+		</LinearLayout>
+
+	</RelativeLayout>
+</FrameLayout>
