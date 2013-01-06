@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="FosdemTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <!-- <item name="android:windowBackground">@color/fosdem_blue</item> -->
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="android:listViewStyle">@style/list_view</item>
     </style>
 
@@ -50,6 +50,7 @@
         <item name="android:paddingBottom">2dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/list_background</item>
+        <item name="android:textColor">@color/list_text</item>
     </style>
 
     <style name="title">
@@ -76,7 +77,7 @@
     </style>
 
     <style name="list_view" parent="@android:Widget.ListView">
-        <!-- <item name="android:cacheColorHint">@color/fosdem_blue</item> -->
+        <!-- <item name="android:cacheColorHint">@color/fosdem_purple</item> -->
     </style>
 
 </resources>

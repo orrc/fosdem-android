@@ -4,7 +4,7 @@
     <style name="FosdemTheme" parent="@style/Theme.Sherlock.Light">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:windowBackground">@color/fosdem_blue</item>
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="android:listViewStyle">@style/list_view</item>
     </style>
 
@@ -48,11 +48,17 @@
         <item name="android:paddingBottom">2dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/list_background</item>
+        <item name="android:textColor">@color/list_text</item>
     </style>
 
     <style name="title">
-        <item name="android:textColor">@color/title</item>
+        <!-- <item name="android:textColor">@color/title</item> -->
         <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="subtitle">
+        <!-- <item name="android:textColor">@color/subtitle</item> -->
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="event_title" parent="title">
@@ -60,13 +66,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="subtitle">
-        <item name="android:textColor">@color/subtitle</item>
+    <style name="tracklist_title" parent="title">
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="tracklist_subtitle" parent="title">
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="list_view" parent="@android:Widget.ListView">
-        <item name="android:cacheColorHint">@color/fosdem_blue</item>
+        <!-- <item name="android:cacheColorHint">@color/fosdem_purple</item> -->
     </style>
 
 </resources>
