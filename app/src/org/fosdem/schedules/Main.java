@@ -295,20 +295,25 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 			case TAGEVENT:
 				Main.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 				tvProgress.setText("Fetched " + counter + " events.");
+				tvProgress.setVisibility(View.VISIBLE);
 				break;
 			case STARTFETCHING:
 				tvProgress.setText("Downloading...");
+				tvProgress.setVisibility(View.VISIBLE);
 				break;
 			case DBAdapter.MSG_EVENT_STORED:
 				tvProgress.setText("Stored " + msg.arg1 + " events.");
+				tvProgress.setVisibility(View.VISIBLE);
 				break;
 			case DONEFETCHING:
 				tvProgress.setText("Done fetching, loading into DB");
+				tvProgress.setVisibility(View.VISIBLE);
 				setDBLastUpdated();
 				break;
 			case DONELOADINGDB:
 				final String doneDb = "Done loading into DB";
 				tvProgress.setText(doneDb);
+				tvProgress.setVisibility(View.VISIBLE);
 				toast(doneDb);
 				tvDbVer.setText(getString(R.string.db_ver) + " "
 						+ StringUtil.dateTimeToString(getDBLastUpdated()));
@@ -324,10 +329,12 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				break;
 			case ROOMIMGSTART:
 				tvProgress.setText("Downloading room images...");
+				tvProgress.setVisibility(View.VISIBLE);
 				break;
 			case ROOMIMGDONE:
 				final String doneRooms = "Room images downloaded";
 				tvProgress.setText(doneRooms);
+				tvProgress.setVisibility(View.VISIBLE);
 				toast(doneRooms);
 				break;
 			/*case LOAD_BG_START:
