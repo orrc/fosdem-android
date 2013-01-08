@@ -4,31 +4,38 @@
 package org.fosdem.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.fosdem.R;
+import org.fosdem.pojo.Day;
 import org.fosdem.pojo.Event;
+import org.fosdem.pojo.Room;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 
 import android.content.Context;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 /**
  * @author Christophe Vandeplas <christophe@vandeplas.com>
  *
  */
-public class EventAdapter extends ArrayAdapter<Event> implements StickyListHeadersAdapter {
+public class EventAdapter extends ArrayAdapter<Event> implements StickyListHeadersAdapter, SectionIndexer {
 
 	public static final String LOG_TAG= EventAdapter.class.getName();
 	private ArrayList<Event> items;
 	private int listItemViewResourceId;
 	private LayoutInflater inflater;
 	private Context context;
+	private HashMap<Integer, Integer> sectionPositionMap;
 
 	public EventAdapter(Context context, int textViewResourceId, ArrayList<Event> items) {
 		super(context, textViewResourceId, items);
@@ -36,6 +43,7 @@ public class EventAdapter extends ArrayAdapter<Event> implements StickyListHeade
 		this.listItemViewResourceId = textViewResourceId;
 		this.items = items;
 		this.inflater = LayoutInflater.from(context);
+		this.sectionPositionMap = getSectionPositionMap(items);
 	}
 
 	@Override
@@ -106,6 +114,48 @@ public class EventAdapter extends ArrayAdapter<Event> implements StickyListHeade
 
 	class ViewHolder {
 		TextView text;
+	}
+
+	public Object[] getSections() {
+		String sections[] = {
+			"Sat",
+			"Sun"
+		};
+
+		return sections;
+	}
+
+	public int getPositionForSection(int section) {
+		return sectionPositionMap.get(Integer.valueOf(section));
+	}
+
+	public int getSectionForPosition(int position) {
+		Event event = items.get(position);
+
+		switch (event.getDayindex()) {
+		case 1:
+			return 0;
+		case 2:
+			return 1;
+		default:
+			return 1;
+		}
+	}
+
+	private HashMap<Integer, Integer> getSectionPositionMap(ArrayList<Event> items) {
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int i = 0;
+		int tmp = -1;
+		int dayindexPrev = -1;
+		for (Event event : items) {
+			if (event.getDayindex() != dayindexPrev) {
+				tmp++;
+				map.put(tmp, i);
+			}
+			i++;
+			dayindexPrev = event.getDayindex();
+		}
+		return map;
 	}
 
 }
