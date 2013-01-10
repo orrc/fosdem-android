@@ -27,11 +27,13 @@
 	        <Button
 	          style="@style/day_button"
 	          android:id="@+id/btn_day_1"
+	          android:drawableStart="@drawable/content_event"
 	          android:text="@string/main_saturday" />
 
 	        <Button
 	          style="@style/day_button"
 	          android:id="@+id/btn_day_2"
+	          android:drawableStart="@drawable/content_event"
 	          android:text="@string/main_sunday" />
 
 	    </LinearLayout>
@@ -45,10 +47,12 @@
 		    <Button
 		      style="@style/main_button"
 		      android:id="@+id/btn_favorites"
+		      android:drawableStart="@drawable/rating_important"
 		      android:text="@string/main_favorites" />
 		    <Button
 		      style="@style/main_button"
 		      android:id="@+id/btn_search"
+		      android:drawableStart="@drawable/action_search"
 		      android:text="@string/main_search" />
 		</LinearLayout>
 
