@@ -20,6 +20,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -155,16 +156,25 @@ public class DisplayEvent extends SherlockActivity {
 		tv.setText(Html.fromHtml(value));
 	}
 
-	public void prefetchImageViewImageAndShowIt(final String filename) {
+	public void prefetchImageViewImageAndShowIt(final String url, final String filename) {
 		Thread t = new Thread() {
 			public void run() {
 				try {
-					roomImageDrawable = FileUtil.fetchCachedDrawable(filename);
+					roomImageDrawable = FileUtil.fetchCachedDrawable(url);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
+				if (roomImageDrawable == null) {
+					try {
+						// there are fallback room drawables, check if we have a suitable one
+						int resId = getResources().getIdentifier("room_"+filename, "drawable", getPackageName());
+						roomImageDrawable = getResources().getDrawable(resId);
+					} catch(NotFoundException $e) {}
+				}
+
 				Message msg = Message.obtain();
 				msg.what = MAPREADY;
 				handler.sendMessage(msg);
@@ -201,7 +211,8 @@ public class DisplayEvent extends SherlockActivity {
 
 		// setImageViewImage(R.id.room_image,
 		// StringUtil.roomNameToURL(event.getRoom()));
-		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()));
+		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()),
+				StringUtil.roomNameToFilename(event.getRoom()));
 	}
 
 	@Override
@@ -211,6 +222,7 @@ public class DisplayEvent extends SherlockActivity {
 		MenuInflater inf = getSupportMenuInflater();
 		inf.inflate(R.menu.event_menu, menu);
 
+		// TODO: move favorite functionality to an ActionProvider!
 		MenuItem item = menu.findItem(R.id.MENU_TOGGLEFAVORITES);
 		setFavoriteActionImageResource(item);
 

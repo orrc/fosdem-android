@@ -11,7 +11,7 @@ import org.fosdem.schedules.Main;
 
 /**
  * String utilities specific to the fosdem schedule application.
- * 
+ *
  * @author sandbender
  */
 public class StringUtil {
@@ -21,8 +21,8 @@ public class StringUtil {
 	private static final int STATE_IN_WHITESPACE = 1;
 	private static final int STATE_IN_FIRST_RETURN = 2;
 	private static final int STATE_IN_SUBSEQUENT_RETURNS = 4;
-	
-	
+
+
 
 	private static final int RETURN_STATES = STATE_IN_FIRST_RETURN | STATE_IN_SUBSEQUENT_RETURNS;
 
@@ -31,14 +31,14 @@ public class StringUtil {
 	 * strings that come from XML: single returns are removed, multiple returns
 	 * are kept. Tabs are replaced by spaces and duplicate spaces are joined
 	 * into one space.
-	 * 
+	 *
 	 * @param value
 	 *            An unclean string value
 	 * @return A niceified version of the value
 	 */
 	public static String niceify(final String value) {
 		if (value == null) return "";
-		
+
 		final StringBuffer sb = new StringBuffer(value.length());
 		final int length = value.length();
 		int state = STATE_NORMAL;
@@ -81,7 +81,7 @@ public class StringUtil {
 	/**
 	 * Returns the persons in the list as a comma separated string of their the
 	 * names.
-	 * 
+	 *
 	 * @param persons
 	 *            A list of persons
 	 * @return A string with their names
@@ -97,14 +97,14 @@ public class StringUtil {
 		}
 		return sb.toString();
 	}
-	
-	
+
+
 	public static String datesToString(final Date start, final int duration) {
 		return new SimpleDateFormat("EEE @HH:mm").format(start)
 			+ " - " + duration + " min";
-		
+
 	}
-	
+
 	public static String dateTimeToString(final Date date) {
 		if (date == null) return "Never";
 		return DateFormat.getDateTimeInstance().format(date);
@@ -112,12 +112,22 @@ public class StringUtil {
 
 	/**
 	 * Clean up a string to remove dots and lowercase.
+	 * This is usually needed for the filename for the map download
+	 * @param name
+	 * @return
+	 */
+	public static String roomNameToFilename(String name) {
+		return name.replace(".", "").toLowerCase();
+	}
+
+	/**
+	 * Clean up a string to remove dots and lowercase.
 	 * This is usually needed for url paths for the map download
-	 * @param name 
+	 * @param name
 	 * @return
 	 */
 	public static String roomNameToURL(String name) {
-		return Main.ROOM_IMG_URL_BASE+name.replace(".", "").toLowerCase();
+		return Main.ROOM_IMG_URL_BASE+roomNameToFilename(name);
 	}
 
 }

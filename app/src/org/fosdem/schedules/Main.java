@@ -53,7 +53,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 	public static final String PREFS = "org.fosdem";
 	public static final String XML_URL = "https://fosdem.org/schedule/xml";
-	public static final String ROOM_IMG_URL_BASE = "http://fosdem.org/2010/map/room/";
+	public static final String ROOM_IMG_URL_BASE = "http://fosdem.org/2012/map/room/";
 
 	public int counter = 0;
 	protected TextView tvProgress = null, tvDbVer = null;
