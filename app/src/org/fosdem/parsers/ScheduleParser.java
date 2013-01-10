@@ -245,7 +245,7 @@ public class ScheduleParser extends BaseParser {
 				} else if (xpp.getName().equals(TAG)) {
 					event.setTag(content);
 				} else if (xpp.getName().equals(TITLE)) {
-					event.setTitle(content);
+					event.setTitle(content.trim());
 				} else if (xpp.getName().equals(SUBTITLE)) {
 					event.setSubtitle(content);
 				} else if (xpp.getName().equals(TRACK)) {
