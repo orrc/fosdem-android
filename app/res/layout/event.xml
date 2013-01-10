@@ -23,13 +23,6 @@
 	          android:paddingBottom="5dp"
 	          android:textColor="@color/event_title_text" />
 
-	        <org.fosdem.views.FavoriteButton
-	          android:id="@+id/favoriteButton"
-	          android:paddingLeft="5dp"
-	          android:paddingRight="5dp"
-	          android:paddingTop="3dp"
-	          android:paddingBottom="3dp" />
-
 	    </LinearLayout>
 
 	    <RelativeLayout

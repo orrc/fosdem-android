@@ -11,19 +11,21 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
 import org.fosdem.util.FileUtil;
 import org.fosdem.util.StringUtil;
-import org.fosdem.views.FavoriteButton;
+import org.fosdem.util.UIUtil;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.util.Log;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,16 +44,27 @@ public class DisplayEvent extends SherlockActivity {
 	protected static final int MAPREADY = 1120;
 
 	private Event event;
+	private boolean isFavorite;
+
+	private Context mContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event);
 
+		mContext = getBaseContext();
+
 		forceActionbarOverflowMenu();
 
 		// Get the event from the intent
 		event = getEvent();
+
+		DBAdapter adapter = new DBAdapter(getBaseContext());
+		adapter.open();
+		isFavorite = adapter.isFavorite(event);
+		Log.v(getClass().getName(),isFavorite?"Is a favorite":"Isn't a favorite");
+		adapter.close();
 
 		// No event? stop this activity
 		if (event == null) {
@@ -61,8 +74,6 @@ public class DisplayEvent extends SherlockActivity {
 
 		// populate the UI_event
 		showEvent(event);
-		FavoriteButton fb = (FavoriteButton) findViewById(R.id.favoriteButton);
-		fb.setEvent(event);
 
 		Intent intent = new Intent(FavoritesBroadcast.ACTION_FAVORITES_UPDATE);
 		intent.putExtra(FavoritesBroadcast.EXTRA_TYPE,
@@ -200,6 +211,9 @@ public class DisplayEvent extends SherlockActivity {
 		MenuInflater inf = getSupportMenuInflater();
 		inf.inflate(R.menu.event_menu, menu);
 
+		MenuItem item = menu.findItem(R.id.MENU_TOGGLEFAVORITES);
+		setFavoriteActionImageResource(item);
+
 		return true;
 	}
 
@@ -208,6 +222,9 @@ public class DisplayEvent extends SherlockActivity {
 		switch (item.getItemId()) {
 		case R.id.MENU_SHARE:
 			share();
+			return true;
+		case R.id.MENU_TOGGLEFAVORITES:
+			toggleFavoriteStatus(item);
 			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
@@ -243,5 +260,32 @@ public class DisplayEvent extends SherlockActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void setFavoriteActionImageResource(MenuItem item) {
+		if (isFavorite) {
+			item.setIcon(R.drawable.rating_important);
+		} else {
+			item.setIcon(R.drawable.rating_not_important);
+		}
+	}
+
+	private void toggleFavoriteStatus(MenuItem menuItem) {
+		DBAdapter db = new DBAdapter(getBaseContext());
+		db.open();
+		if (isFavorite) {
+			// Unmark
+			db.deleteBookmark(event.getId());
+			UIUtil.showToast(mContext, mContext.getString(R.string.favorites_event_removed));
+		} else {
+			// Mark
+			db.addBookmark(event);
+			UIUtil.showToast(mContext, mContext.getString(R.string.favorites_event_added));
+		}
+		db.close();
+		isFavorite = !isFavorite;
+
+		setFavoriteActionImageResource(menuItem);
+
 	}
 }
