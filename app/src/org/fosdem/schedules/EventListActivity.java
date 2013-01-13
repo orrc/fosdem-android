@@ -85,12 +85,12 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 			setTitle(trackName);
 		if (query != null)
 			setTitle("Search for: " + query);
-		if (favorites != null && favorites) {
+		if (favorites != null && favorites)
 			setTitle("Favorites");
 
-			registerReceiver(favoritesChangedReceiver, new IntentFilter(
-					FavoritesBroadcast.ACTION_FAVORITES_UPDATE));
-		}
+		registerReceiver(favoritesChangedReceiver, new IntentFilter(
+				FavoritesBroadcast.ACTION_FAVORITES_UPDATE));
+
 
 		events = getEventList(favorites);
 		eventAdapter = new EventAdapter(this, R.layout.event_list_item, events);
