@@ -126,7 +126,6 @@ public class EventAdapter extends ArrayAdapter<Event> implements StickyListHeade
 	}
 
 	public int getPositionForSection(int section) {
-		Log.v("fooh", "foo: "+section);
 		Integer position = sectionPositionMap.get(Integer.valueOf(section));
 		if (position == null) {
 			return 1;
