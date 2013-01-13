@@ -46,15 +46,16 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 		dayIndex = savedInstanceState != null ? savedInstanceState.getInt(DAY_INDEX) : 0;
 
 		tracks = getTracks();
-        setListAdapter(new TrackAdapter(this, R.layout.track_list_item, tracks));
+        setListAdapter(new TrackAdapter(this, R.layout.track_list_item, R.id.title, tracks));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         //setTitle("Tracks for Day " + dayIndex);
         actionBar.setDisplayShowTitleEnabled(false);
 
-        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
-        	android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
+    		R.layout.sherlock_spinner_item);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
         actionBar.setSelectedNavigationItem(dayIndex - 1);
 
@@ -96,7 +97,7 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 			}
 		}
 
-		// Load event with specified id from the db
+		// Load track list with specified day index from db
 		final DBAdapter db = new DBAdapter(this);
 		try {
 			db.open();
@@ -118,7 +119,7 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 			dayIndex = position + 1;
 			Log.d(LOG_TAG, "showTracksForDay(" + dayIndex + ");");
 			tracks = getTracks();
-			setListAdapter(new TrackAdapter(this, R.layout.track_list_item, tracks));
+			setListAdapter(new TrackAdapter(this, R.layout.track_list_item, R.id.title, tracks));
 		}
 
 	    return true;

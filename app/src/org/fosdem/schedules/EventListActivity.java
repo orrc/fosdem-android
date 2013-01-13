@@ -7,8 +7,12 @@ import org.fosdem.R;
 import org.fosdem.broadcast.FavoritesBroadcast;
 import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
+import org.fosdem.pojo.Track;
 import org.fosdem.util.EventAdapter;
+import org.fosdem.util.TrackAdapter;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -25,6 +29,8 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
@@ -35,7 +41,7 @@ import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView.
  *
  */
 public class EventListActivity extends SherlockActivity  implements OnScrollListener,
-	AdapterView.OnItemClickListener, OnHeaderClickListener {
+	AdapterView.OnItemClickListener, OnHeaderClickListener, OnNavigationListener {
 
 	public static final String LOG_TAG = EventListActivity.class.getName();
 
@@ -54,6 +60,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 	private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
 	private int firstVisible;
 	private StickyListHeadersListView stickyList;
+	private TrackAdapter trackAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,8 +77,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 			firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
 		}
 
-		trackName = savedInstanceState != null ? savedInstanceState
-				.getString(TRACK_NAME) : null;
+		trackName = savedInstanceState != null ? savedInstanceState.getString(TRACK_NAME) : null;
 
 		// what room should we show? fetch from the parameters
 		Bundle extras = getIntent().getExtras();
@@ -91,14 +97,28 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 		registerReceiver(favoritesChangedReceiver, new IntentFilter(
 				FavoritesBroadcast.ACTION_FAVORITES_UPDATE));
 
-
 		events = getEventList(favorites);
 		eventAdapter = new EventAdapter(this, R.layout.event_list_item, events);
 
 		stickyList.setAdapter(eventAdapter);
 		stickyList.setSelection(firstVisible);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ActionBar actionBar = getSupportActionBar();
+
+		// show action bar list navigation in track mode
+		if (trackName != null && dayIndex != 0) {
+	        ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
+	        trackAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
+	        	android.R.id.text1, tracksForDayIndex);
+	        trackAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+
+	        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+	        actionBar.setDisplayShowTitleEnabled(false);
+	        actionBar.setListNavigationCallbacks(trackAdapter, this);
+	        actionBar.setSelectedNavigationItem(trackAdapter.getPositionOfTrack(trackName));
+		}
+
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -110,6 +130,17 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+
+	public boolean onNavigationItemSelected(int position, long itemId) {
+	    // spinner navigation between tracks in track mode
+		Track track = trackAdapter.getItem(position);
+		trackName = track.getName();
+		setTitle(trackName);
+		events = getEventList(favorites);
+		eventAdapter.clear();
+		eventAdapter.addAll(events);
+		return true;
 	}
 
 	@Override
@@ -176,6 +207,22 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 			}
 
 			return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(trackName, dayIndex);
+		} finally {
+			db.close();
+		}
+	}
+
+	private ArrayList<Track> getTracks(int dayIndex) {
+		// Load track list with specified day index from db
+		final DBAdapter db = new DBAdapter(this);
+		try {
+			db.open();
+			String[] trackNames = db.getTracksByDayIndex(dayIndex);
+			ArrayList<Track> tracks = new ArrayList<Track>();
+			for (String trackName : trackNames) {
+				tracks.add(new Track(trackName));
+			}
+			return tracks;
 		} finally {
 			db.close();
 		}
