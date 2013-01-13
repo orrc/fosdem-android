@@ -11,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:background="@color/header_text" />
+        android:background="@color/fosdem_purple" />
 
 </LinearLayout>

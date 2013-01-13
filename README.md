@@ -24,6 +24,10 @@ This is a native Android app for using the FOSDEM schedule offline.
 
 * The project needs the android-support-v4.jar to build. If your Eclipse doesn't find it on its own, you have to specify its path (it resides in your Android SDK folder as extras/android/support/v4/android-support-v4.jar) in the project settings > Java Build Path > Libraries (via "Add External JARs").
 
+## To-Do
+
+* Implementation with Fragments and Tablet UI
+
 ## Contributors
 
 ### Original creators
