@@ -203,7 +203,6 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 	protected void onDestroy() {
 		super.onDestroy();
-		if (favorites != null && favorites)
-			unregisterReceiver(favoritesChangedReceiver);
+		unregisterReceiver(favoritesChangedReceiver);
 	}
 }
