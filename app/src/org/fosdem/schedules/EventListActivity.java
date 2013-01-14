@@ -139,7 +139,10 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 		setTitle(trackName);
 		events = getEventList(favorites);
 		eventAdapter.clear();
-		eventAdapter.addAll(events);
+		//eventAdapter.addAll(events); // note: addAll is only available starting with API 11
+		for (Event event : events) {
+			eventAdapter.add(event);
+		}
 		return true;
 	}
 
