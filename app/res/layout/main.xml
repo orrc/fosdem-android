@@ -17,64 +17,70 @@
 	    android:orientation="vertical"
 	    android:background="@drawable/main_header_gradient">
 
-	    <LinearLayout
-	        android:id="@+id/button_wrap"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="vertical"
-		    android:paddingTop="20dp"
-		    android:paddingLeft="10dp"
-		    android:paddingRight="10dp"
-		    android:paddingBottom="20dp">
-
-	        <ImageView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:src="@drawable/fosdem"
-				android:scaleType="centerInside"
-				android:layout_marginBottom="10dp" />
+	    <ScrollView
+	        android:id="@+id/button_scroll"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
 
 		    <LinearLayout
-		      android:id="@+id/btn_box"
-		      android:layout_width="fill_parent"
-		      android:orientation="horizontal">
+		        android:id="@+id/button_wrap"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+			    android:paddingTop="20dp"
+			    android:paddingLeft="10dp"
+			    android:paddingRight="10dp"
+			    android:paddingBottom="20dp">
 
-		        <Button
-		          style="@style/day_button"
-		          android:id="@+id/btn_day_1"
-		          android:drawableStart="@drawable/content_event"
-		          android:text="@string/main_saturday" />
+		        <ImageView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:src="@drawable/fosdem"
+					android:scaleType="centerInside"
+					android:layout_marginBottom="10dp" />
 
-		        <Button
-		          style="@style/day_button"
-		          android:id="@+id/btn_day_2"
-		          android:drawableStart="@drawable/content_event"
-		          android:text="@string/main_sunday" />
+			    <LinearLayout
+			      android:id="@+id/btn_box"
+			      android:layout_width="fill_parent"
+			      android:orientation="horizontal">
 
-		    </LinearLayout>
+			        <Button
+			          style="@style/day_button"
+			          android:id="@+id/btn_day_1"
+			          android:drawableStart="@drawable/content_event"
+			          android:text="@string/main_saturday" />
 
-		    <LinearLayout
-		      android:id="@+id/btn_box_two"
-		      android:layout_below="@id/btn_box"
-		      android:layout_width="fill_parent"
-		      android:layout_height="wrap_content"
-		      android:orientation="vertical">
-			    <Button
-			      style="@style/main_button"
-			      android:id="@+id/btn_favorites"
-			      android:drawableStart="@drawable/rating_important"
-			      android:text="@string/main_favorites" />
-			    <Button
-			      style="@style/main_button"
-			      android:id="@+id/btn_search"
-			      android:drawableStart="@drawable/action_search"
-			      android:text="@string/main_search" />
+			        <Button
+			          style="@style/day_button"
+			          android:id="@+id/btn_day_2"
+			          android:drawableStart="@drawable/content_event"
+			          android:text="@string/main_sunday" />
+
+			    </LinearLayout>
+
+			    <LinearLayout
+			      android:id="@+id/btn_box_two"
+			      android:layout_below="@id/btn_box"
+			      android:layout_width="fill_parent"
+			      android:layout_height="wrap_content"
+			      android:orientation="vertical">
+				    <Button
+				      style="@style/main_button"
+				      android:id="@+id/btn_favorites"
+				      android:drawableStart="@drawable/rating_important"
+				      android:text="@string/main_favorites" />
+				    <Button
+				      style="@style/main_button"
+				      android:id="@+id/btn_search"
+				      android:drawableStart="@drawable/action_search"
+				      android:text="@string/main_search" />
+				</LinearLayout>
 			</LinearLayout>
-		</LinearLayout>
+		</ScrollView>
 
 	    <LinearLayout
 	      android:id="@+id/status_box"
-	      android:layout_below="@id/button_wrap"
+	      android:layout_below="@id/button_scroll"
 	      android:layout_width="fill_parent"
 	      android:orientation="vertical"
 	      android:layout_alignParentBottom="true"
@@ -96,4 +102,5 @@
 		</LinearLayout>
 
 	</RelativeLayout>
+
 </FrameLayout>
