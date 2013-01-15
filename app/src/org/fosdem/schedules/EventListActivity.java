@@ -106,7 +106,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 	        ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
 	        trackAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
 	        	android.R.id.text1, tracksForDayIndex);
-	        trackAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+	        trackAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
 	        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	        actionBar.setDisplayShowTitleEnabled(false);

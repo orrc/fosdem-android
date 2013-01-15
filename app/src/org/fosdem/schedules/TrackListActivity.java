@@ -54,7 +54,7 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 
         ArrayAdapter<CharSequence> mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
     		R.layout.sherlock_spinner_item);
-        mSpinnerAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
         actionBar.setSelectedNavigationItem(dayIndex - 1);
 

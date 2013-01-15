@@ -6,7 +6,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:listViewStyle">@style/list_view</item>
-        <item name="dropdownListPreferredItemHeight">48dp</item>
+        <item name="dropdownListPreferredItemHeight">40dp</item>
     </style>
 
     <style name="main_button">
