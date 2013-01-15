@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.fosdem.R;
-import org.fosdem.pojo.Day;
 import org.fosdem.pojo.Event;
-import org.fosdem.pojo.Room;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 
 import android.content.Context;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
