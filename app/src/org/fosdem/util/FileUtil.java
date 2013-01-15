@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class FileUtil {
 	public static final String LOG_TAG=FileUtil.class.getName();
-    public static final String CACHELOCATION = "/data/data/org.fosdem/files/";  // TODO eMich - get cachelocation from Android environment
+	public static final String CACHELOCATION = "/data/data/org.fosdem/files/";  // TODO eMich - get cachelocation from Android environment
 
 	public static Object fetch(String address) throws MalformedURLException,
 			IOException {
@@ -56,24 +56,24 @@ public class FileUtil {
 		return fis;
 	}
 
-	public static Drawable fetchCachedDrawable(String url)
-			throws MalformedURLException, IOException {
+	public static Drawable fetchCachedDrawable(String url) throws MalformedURLException, IOException {
 		Log.d(LOG_TAG, "Fetching cached : " + url);
 		String cacheName = md5(url);
 		checkAndCreateDirectoryIfNeeded();
 
 		File r = new File(CACHELOCATION + cacheName);
-		
+
 		// LATER download images if the timestamp on the server is new
 		if (!r.exists()) {
 			InputStream is = (InputStream) fetch(url);
+			if (is != null) {
+				FileOutputStream fos = new FileOutputStream(CACHELOCATION + cacheName);
+				int nextChar;
+				while ((nextChar = is.read()) != -1)
+					fos.write((char) nextChar);
 
-			FileOutputStream fos = new FileOutputStream(CACHELOCATION + cacheName);
-			int nextChar;
-			while ((nextChar = is.read()) != -1)
-				fos.write((char) nextChar);
-
-			fos.flush();
+				fos.flush();
+			}
 		}
 
 		FileInputStream fis = new FileInputStream(CACHELOCATION + cacheName);
