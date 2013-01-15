@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/MENU_FAVORITES"
+    <item android:id="@+id/MENU_FAVORITES"
         android:showAsAction="ifRoom"
         android:icon="@drawable/rating_important"
         android:title="@string/menu_favorites" />
-  <item android:id="@+id/MENU_SEARCH"
+    <item android:id="@+id/MENU_SEARCH"
         android:showAsAction="ifRoom"
         android:icon="@drawable/action_search"
         android:title="@string/menu_search" />
-  <item android:id="@+id/MENU_UPDATE"
+    <item android:id="@+id/MENU_UPDATE"
         android:showAsAction="ifRoom"
         android:icon="@drawable/navigation_refresh"
         android:title="@string/menu_update" />
-  <item android:id="@+id/MENU_SETTINGS"
+    <item android:id="@+id/MENU_SETTINGS"
         android:showAsAction="ifRoom"
         android:icon="@drawable/action_settings"
         android:title="@string/menu_settings" />
-  <item android:id="@+id/MENU_ABOUT"
+    <item android:id="@+id/MENU_ABOUT"
         android:showAsAction="ifRoom"
         android:icon="@drawable/action_about"
         android:title="@string/menu_about" />

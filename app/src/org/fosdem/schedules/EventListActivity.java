@@ -103,33 +103,33 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 		// show action bar list navigation in track mode
 		if (trackName != null && dayIndex != 0) {
-	        ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
-	        trackAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
-	        	android.R.id.text1, tracksForDayIndex);
-	        trackAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+			ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
+			trackAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
+				android.R.id.text1, tracksForDayIndex);
+			trackAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
-	        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-	        actionBar.setDisplayShowTitleEnabled(false);
-	        actionBar.setListNavigationCallbacks(trackAdapter, this);
-	        actionBar.setSelectedNavigationItem(trackAdapter.getPositionOfTrack(trackName));
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+			actionBar.setDisplayShowTitleEnabled(false);
+			actionBar.setListNavigationCallbacks(trackAdapter, this);
+			actionBar.setSelectedNavigationItem(trackAdapter.getPositionOfTrack(trackName));
 		}
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	        	onBackPressed();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public boolean onNavigationItemSelected(int position, long itemId) {
-	    // spinner navigation between tracks in track mode
+		// spinner navigation between tracks in track mode
 		Track track = trackAdapter.getItem(position);
 		trackName = track.getName();
 		setTitle(trackName);
@@ -213,6 +213,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 	private ArrayList<Track> getTracks(int dayIndex) {
 		// Load track list with specified day index from db
+		// TODO: this was partly duplicated from TrackListActivity and should get refactored.
 		final DBAdapter db = new DBAdapter(this);
 		try {
 			db.open();

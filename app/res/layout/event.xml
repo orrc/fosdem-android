@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:fillViewport="true">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 
     <LinearLayout
-      android:layout_width="fill_parent"
-      android:orientation="vertical">
+        android:layout_width="fill_parent"
+        android:orientation="vertical">
 
-	    <LinearLayout
-	      android:layout_width="fill_parent"
-	      android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal">
 
-	        <TextView
-	          style="@style/title"
-	          android:id="@+id/event_title"
-	          android:layout_width="0px"
-	          android:layout_weight="1"
-	          android:paddingLeft="8dp"
-	          android:paddingTop="5dp"
-	          android:paddingBottom="5dp"
-	          android:textColor="@color/event_title_text" />
+            <TextView
+                style="@style/title"
+                android:id="@+id/event_title"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:paddingLeft="8dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/event_title_text" />
 
-	    </LinearLayout>
+        </LinearLayout>
 
-	    <RelativeLayout
-	      android:layout_width="fill_parent"
-	      android:paddingLeft="8dp"
-	      android:paddingRight="8dp"
-	      android:paddingTop="3dp"
-	      android:paddingBottom="3dp"
-	      android:background="@color/fosdem_purple">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:background="@color/fosdem_purple">
 
-	        <LinearLayout
-	            android:id="@+id/speaker_layout_wrap"
-	            android:layout_width="fill_parent"
-	            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/speaker_layout_wrap"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal">
 
-	            <TextView
-		          android:id="@+id/event_speaker"
-		          android:textColor="@color/event_meta_text"
-		          android:layout_weight=".55"
-		          android:layout_height="wrap_content"
-		          android:layout_width="0dip" />
+                <TextView
+                    android:id="@+id/event_speaker"
+                    android:textColor="@color/event_meta_text"
+                    android:layout_weight=".55"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dip" />
 
-		        <TextView
-		          android:id="@+id/event_track"
-		          android:textColor="@color/event_meta_text"
-		          android:layout_weight=".45"
-		          android:layout_gravity="right"
-		          android:gravity="right"
-		          android:layout_height="wrap_content"
-		          android:layout_width="0dip" />
+                <TextView
+                    android:id="@+id/event_track"
+                    android:textColor="@color/event_meta_text"
+                    android:layout_weight=".45"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dip" />
 
-	        </LinearLayout>
+            </LinearLayout>
 
-	        <LinearLayout
-	            android:id="@+id/room_time_wrap"
-	            android:layout_width="fill_parent"
-	            android:orientation="horizontal"
-	            android:layout_below="@id/speaker_layout_wrap">
+            <LinearLayout
+                android:id="@+id/room_time_wrap"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_below="@id/speaker_layout_wrap">
 
-		        <TextView
-		          android:id="@+id/event_room"
-		          android:textColor="@color/event_meta_text"
-		          android:layout_weight=".45"
-		          android:layout_height="wrap_content"
-		          android:layout_width="0dip" />
+                <TextView
+                    android:id="@+id/event_room"
+                    android:textColor="@color/event_meta_text"
+                    android:layout_weight=".45"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dip" />
 
-		        <TextView
-		          android:id="@+id/event_time"
-		          android:textColor="@color/event_meta_text"
-		          android:layout_weight=".55"
-		          android:layout_gravity="right"
-		          android:gravity="right"
-		          android:layout_height="wrap_content"
-		          android:layout_width="0dip" />
+                <TextView
+                    android:id="@+id/event_time"
+                    android:textColor="@color/event_meta_text"
+                    android:layout_weight=".55"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dip" />
 
-		    </LinearLayout>
+            </LinearLayout>
 
-	    </RelativeLayout>
+        </RelativeLayout>
 
-	    <RelativeLayout
-	            android:id="@+id/BodyLayout"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:orientation="vertical">
-	        <TextView
-	            android:text="event_abstract"
-	            android:id="@+id/event_abstract"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:textColor="@color/event_abstract_text"
-	            android:padding="4dip"
-	            android:layout_margin="10dip"
-	            android:background="@color/event_abstract_background" />
+        <RelativeLayout
+            android:id="@+id/BodyLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="event_abstract"
+                android:id="@+id/event_abstract"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/event_abstract_text"
+                android:padding="4dip"
+                android:layout_margin="10dip"
+                android:background="@color/event_abstract_background" />
 
-	        <TextView
-	            android:text="event_description"
-	            android:id="@+id/event_description"
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:layout_below="@id/event_abstract"
-	            android:textColor="@color/event_description_text"
-	            android:paddingLeft="10dip"
-	            android:paddingRight="10dip"
-	            android:paddingBottom="10dip" />
+            <TextView
+                android:text="event_description"
+                android:id="@+id/event_description"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/event_abstract"
+                android:textColor="@color/event_description_text"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingBottom="10dip" />
         </RelativeLayout>
         <ImageView
             android:id="@+id/room_image"

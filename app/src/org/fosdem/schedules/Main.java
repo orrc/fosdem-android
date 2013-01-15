@@ -205,17 +205,17 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 							return;
 
 						ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-					    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-					    if (networkInfo != null && networkInfo.isConnected()) {
-					    	// start updater if network is available
-					    	final Thread t = new Thread(new BackgroundUpdater(
+						NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+						if (networkInfo != null && networkInfo.isConnected()) {
+							// start updater if network is available
+							final Thread t = new Thread(new BackgroundUpdater(
 									handler, Main.this, getApplicationContext(),
 									selection[0], selection[1]));
 							t.start();
-					    } else {
-					        // no internet connection available
-					    	toast("Cannot update, no internet connection available.");
-					    }
+						} else {
+							// no internet connection available
+							toast("Cannot update, no internet connection available.");
+						}
 					}
 				});
 

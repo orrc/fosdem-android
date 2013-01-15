@@ -86,14 +86,14 @@ public class DisplayEvent extends SherlockActivity {
 	}
 
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	        	onBackPressed();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public Handler handler = new Handler() {
@@ -115,7 +115,6 @@ public class DisplayEvent extends SherlockActivity {
 	 * @return The Event or null.
 	 */
 	private Event getEvent() {
-
 		// Get the extras
 		final Bundle extras = getIntent().getExtras();
 		if (extras == null)
@@ -283,6 +282,8 @@ public class DisplayEvent extends SherlockActivity {
 	}
 
 	private void toggleFavoriteStatus(MenuItem menuItem) {
+		// TODO: this was extracted from org.fosdem.views.FavoriteButton
+		// and shouldn't necessarily be here.
 		DBAdapter db = new DBAdapter(getBaseContext());
 		db.open();
 		if (isFavorite) {

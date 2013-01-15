@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.fosdem.schedules;
 
 import java.util.ArrayList;
@@ -45,45 +42,45 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 		dayIndex = savedInstanceState != null ? savedInstanceState.getInt(DAY_INDEX) : 0;
 
 		tracks = getTracks();
-        setListAdapter(new TrackAdapter(this, R.layout.track_list_item, R.id.title, tracks));
+		setListAdapter(new TrackAdapter(this, R.layout.track_list_item, R.id.title, tracks));
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        //setTitle("Tracks for Day " + dayIndex);
-        actionBar.setDisplayShowTitleEnabled(false);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		//setTitle("Tracks for Day " + dayIndex);
+		actionBar.setDisplayShowTitleEnabled(false);
 
-        ArrayAdapter<CharSequence> mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
-    		R.layout.sherlock_spinner_item);
-        mSpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
-        actionBar.setSelectedNavigationItem(dayIndex - 1);
+		ArrayAdapter<CharSequence> mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tracklist_spinneractions,
+			R.layout.sherlock_spinner_item);
+		mSpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+		actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+		actionBar.setSelectedNavigationItem(dayIndex - 1);
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            NavUtils.navigateUpFromSameTask(this);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        Track track = (Track) getListView().getItemAtPosition(position);
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Track track = (Track) getListView().getItemAtPosition(position);
 
-        Log.d(LOG_TAG, "Track selected: " + track.getName());
+		Log.d(LOG_TAG, "Track selected: " + track.getName());
 
-        Intent i = new Intent(this, EventListActivity.class);
+		Intent i = new Intent(this, EventListActivity.class);
 		i.putExtra(EventListActivity.TRACK_NAME, track.getName());
 		i.putExtra(EventListActivity.DAY_INDEX, dayIndex);
 		startActivity(i);
-    }
+	}
 
 	private ArrayList<Track> getTracks() {
 		if (dayIndex == 0) {
@@ -121,6 +118,6 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 			setListAdapter(new TrackAdapter(this, R.layout.track_list_item, R.id.title, tracks));
 		}
 
-	    return true;
+		return true;
 	}
 }

@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.fosdem.util;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter 
 	private int layoutResourceId;
 	private int textViewResourceId;
 	private ArrayList<Track> items;
-    private int dropDownResourceId;
+	private int dropDownResourceId;
 
 	public TrackAdapter(Context context, int layoutResourceId, int textViewResourceId, ArrayList<Track> items) {
 		super(context, layoutResourceId, textViewResourceId, items);
@@ -55,9 +52,9 @@ public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter 
 		return v;
 	}
 
-    /**
+	/**
 	 * Sets the layout resource to create the drop down views.
-     */
+	 */
 	public void setDropDownViewResource(int resource) {
 		this.dropDownResourceId = resource;
 	}

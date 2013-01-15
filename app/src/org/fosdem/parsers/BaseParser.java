@@ -32,41 +32,41 @@ public abstract class BaseParser {
 	}
 
 	protected InputStream openHttpConnection(String urlString) throws IOException {
-	    InputStream in = null;
-	    int response = -1;
+		InputStream in = null;
+		int response = -1;
 
-	    URL url = new URL(urlString);
+		URL url = new URL(urlString);
 
 		HttpURLConnection conn = null;
 
 		if (url.getProtocol().toLowerCase().equals("https")) {
-		    trustAllCerts();
+			trustAllCerts();
 			HttpsURLConnection https = (HttpsURLConnection) url.openConnection();
 			conn = https;
 		} else {
 			conn = (HttpURLConnection) url.openConnection();
 		}
 
-	    if (!(conn instanceof HttpURLConnection))
-	    	throw new IOException("Not an HTTP connection");
+		if (!(conn instanceof HttpURLConnection))
+			throw new IOException("Not an HTTP connection");
 
-	    try	{
-	    	conn.setReadTimeout(30000 /* milliseconds */);
-	    	conn.setConnectTimeout(35000 /* milliseconds */);
-	    	conn.setAllowUserInteraction(false);
-	    	conn.setInstanceFollowRedirects(true);
-	    	conn.setRequestMethod("GET");
+		try	{
+			conn.setReadTimeout(30000 /* milliseconds */);
+			conn.setConnectTimeout(35000 /* milliseconds */);
+			conn.setAllowUserInteraction(false);
+			conn.setInstanceFollowRedirects(true);
+			conn.setRequestMethod("GET");
 
-	    	conn.connect();
-	    	response = conn.getResponseCode();
+			conn.connect();
+			response = conn.getResponseCode();
 
-	        if (response == HttpsURLConnection.HTTP_OK) {
-	        	in = conn.getInputStream();
-	        }
-	    } catch (Exception e) {
-	    	throw new IOException("Error connecting");
-	    }
-	    return in;
+			if (response == HttpsURLConnection.HTTP_OK) {
+				in = conn.getInputStream();
+			}
+		} catch (Exception e) {
+			throw new IOException("Error connecting");
+		}
+		return in;
 	}
 
 	/**

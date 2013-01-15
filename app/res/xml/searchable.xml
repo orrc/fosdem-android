@@ -32,9 +32,9 @@
    SUGGEST_COLUMN_INTENT_ACTION column for each suggestion returned by the provider.
  -->
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-        android:label="@string/search_label"
-        android:searchSettingsDescription="@string/settings_description"
-        android:includeInGlobalSearch="true"
-        android:searchSuggestAuthority="fosdemsearch"
-        android:searchSuggestIntentAction="android.intent.action.VIEW">
+    android:label="@string/search_label"
+    android:searchSettingsDescription="@string/settings_description"
+    android:includeInGlobalSearch="true"
+    android:searchSuggestAuthority="fosdemsearch"
+    android:searchSuggestIntentAction="android.intent.action.VIEW">
 </searchable>

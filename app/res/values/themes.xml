@@ -22,14 +22,14 @@
 
     <style name="list_header">
         <item name="android:layout_width">match_parent</item>
-	    <item name="android:layout_height">100dp</item>
-	    <item name="android:gravity">bottom</item>
-	    <item name="android:orientation">vertical</item>
-	    <item name="android:background">@color/list_background</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/list_background</item>
     </style>
 
     <style name="list_header_text">
-		<item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">left</item>
         <item name="android:paddingLeft">10dp</item>

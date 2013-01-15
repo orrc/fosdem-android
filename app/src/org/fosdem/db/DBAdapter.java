@@ -648,13 +648,13 @@ public class DBAdapter extends ContentProvider {
 					.getColumnIndex(DAYINDEX)));
 
 			Boolean eventIsFavorite = false;
-	        for (final int favoriteId : favoriteIds) {
-	            if (favoriteId == event.getId()) {
-	            	eventIsFavorite = true;
-	                break;
-	            }
-	        }
-	        event.setIsFavorite(eventIsFavorite);
+			for (final int favoriteId : favoriteIds) {
+				if (favoriteId == event.getId()) {
+					eventIsFavorite = true;
+					break;
+				}
+			}
+			event.setIsFavorite(eventIsFavorite);
 
 			events.add(event);
 			event.setPersons(getPersonsForEvent(event.getId()));

@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.fosdem.util;
 
 import java.util.ArrayList;
