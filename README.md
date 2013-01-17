@@ -1,6 +1,6 @@
 # FOSDEM Android app
 
-This is a native Android app for using the FOSDEM schedule offline.
+This is a native Android app for using the FOSDEM schedule offline. It is available in the [Google Play Store](https://play.google.com/store/apps/details?id=org.fosdem).
 
 ## Features
 
@@ -27,6 +27,22 @@ This is a native Android app for using the FOSDEM schedule offline.
 ## To-Do
 
 * Implementation with Fragments and Tablet UI
+
+## Changelog
+
+### 2.0.0
+
+* Completely revised Holo-ified UI and new FOSDEM logo
+* Fixed to work with new HTTPS URL
+* Added fallback room images from 2012 because the room image download is currently not available.
+
+### 1.0.3
+
+* Minor updates and points towards 2011 edition
+
+### 1.0.2
+
+* Issue with notifications/background service solved. Thx to Christopher Orr.
 
 ## Contributors
 
