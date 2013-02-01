@@ -1,0 +1,6 @@
+[submodule "libraries/ActionBarSherlock"]
+	path = libraries/ActionBarSherlock
+	url = https://github.com/JakeWharton/ActionBarSherlock
+[submodule "libraries/StickyListHeaders"]
+	path = libraries/StickyListHeaders
+	url = https://github.com/emilsjolander/StickyListHeaders
