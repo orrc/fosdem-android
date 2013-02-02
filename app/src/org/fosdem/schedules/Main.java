@@ -36,7 +36,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main extends SherlockActivity implements ParserEventListener, OnClickListener {
+public class Main extends SherlockActivity implements ParserEventListener,
+		OnClickListener {
 	public static final String LOG_TAG = Main.class.getName();
 
 	public static final int STARTFETCHING = -1;
@@ -63,16 +64,14 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	private BroadcastReceiver favoritesChangedReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			//Log.v(getClass().getName(),"Action: "+intent.getIntExtra(FavoritesBroadcast.EXTRA_TYPE, -1));
-			if (intent.getIntExtra(FavoritesBroadcast.EXTRA_TYPE,-1)
-							!=FavoritesBroadcast.EXTRA_TYPE_INSERT && intent
-							.getIntExtra(FavoritesBroadcast.EXTRA_TYPE,-1)!=FavoritesBroadcast.EXTRA_TYPE_DELETE)
+			// Log.v(getClass().getName(),"Action: "+intent.getIntExtra(FavoritesBroadcast.EXTRA_TYPE,
+			// -1));
+			if (intent.getIntExtra(FavoritesBroadcast.EXTRA_TYPE, -1) != FavoritesBroadcast.EXTRA_TYPE_INSERT
+					&& intent.getIntExtra(FavoritesBroadcast.EXTRA_TYPE, -1) != FavoritesBroadcast.EXTRA_TYPE_DELETE)
 				return;
 			long count = intent
 					.getLongExtra(FavoritesBroadcast.EXTRA_COUNT, -1);
-			Log
-					.v(getClass().getName(), "FavoritesBroadcast received! "
-							+ count);
+			Log.v(getClass().getName(), "FavoritesBroadcast received! " + count);
 			if (count == 0 || count == -1)
 				btnFavorites.setEnabled(false);
 			else
@@ -95,17 +94,20 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 			finish();
 		} else if (Intent.ACTION_VIEW.equals(queryAction)) {
 			Intent i = new Intent(this, DisplayEvent.class);
-			i.putExtra(DisplayEvent.ID, Integer
-					.parseInt(intent.getDataString()));
+			i.putExtra(DisplayEvent.ID,
+					Integer.parseInt(intent.getDataString()));
 			startActivity(i);
 			finish();
 		}
 
 		// Notify that "favourites" alarms should be set up
-		Intent initialLoadIntent = new Intent(FavoritesBroadcast.ACTION_FAVORITES_INITIAL_LOAD);
+		Intent initialLoadIntent = new Intent(
+				FavoritesBroadcast.ACTION_FAVORITES_INITIAL_LOAD);
 		sendBroadcast(initialLoadIntent);
 
 		// Set up the UI
+		// FIXME: below line fails on Galaxy Tab 10.1 (Android 3.1) probably
+		// because of ActionBarSherlock
 		setContentView(R.layout.main);
 
 		btnDay1 = (Button) findViewById(R.id.btn_day_1);
@@ -168,7 +170,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	 */
 	private Dialog createAboutDialog() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		final View view = getLayoutInflater().inflate(R.layout.about, null, false);
+		final View view = getLayoutInflater().inflate(R.layout.about, null,
+				false);
 		builder.setTitle(getString(R.string.app_name));
 		builder.setIcon(R.drawable.action_about);
 		builder.setView(view);
@@ -205,12 +208,14 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 							return;
 
 						ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+						NetworkInfo networkInfo = connMgr
+								.getActiveNetworkInfo();
 						if (networkInfo != null && networkInfo.isConnected()) {
 							// start updater if network is available
 							final Thread t = new Thread(new BackgroundUpdater(
-									handler, Main.this, getApplicationContext(),
-									selection[0], selection[1]));
+									handler, Main.this,
+									getApplicationContext(), selection[0],
+									selection[1]));
 							t.start();
 						} else {
 							// no internet connection available
@@ -293,7 +298,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				return;
 			switch (msg.what) {
 			case TAGEVENT:
-				Main.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+				Main.this
+						.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 				tvProgress.setText("Fetched " + counter + " events.");
 				tvProgress.setVisibility(View.VISIBLE);
 				break;
@@ -337,13 +343,14 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				tvProgress.setVisibility(View.VISIBLE);
 				toast(doneRooms);
 				break;
-			/*case LOAD_BG_START:
-				Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-				Main.this.setRequestedOrientation(display.getOrientation());
-				break;
-			case LOAD_BG_END:
-				Main.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-				break;*/
+			/*
+			 * case LOAD_BG_START: Display display = ((WindowManager)
+			 * getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+			 * Main.this.setRequestedOrientation(display.getOrientation());
+			 * break; case LOAD_BG_END:
+			 * Main.this.setRequestedOrientation(ActivityInfo
+			 * .SCREEN_ORIENTATION_SENSOR); break;
+			 */
 			}
 		}
 	};
@@ -374,7 +381,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	 * Set NOW as the time that the Schedule database has been imported.
 	 */
 	private void setDBLastUpdated() {
-		SharedPreferences.Editor editor = getSharedPreferences(Main.PREFS, 0).edit();
+		SharedPreferences.Editor editor = getSharedPreferences(Main.PREFS, 0)
+				.edit();
 		long timestamp = System.currentTimeMillis() / 1000;
 		editor.putLong("db_last_updated", timestamp);
 		editor.commit(); // Don't forget to commit your edits!!!
@@ -382,7 +390,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 	/**
 	 * Fetch the Date when the Schedule database has been imported
-	 *
+	 * 
 	 * @return Date of the last Database update
 	 */
 	private Date getDBLastUpdated() {
@@ -404,11 +412,13 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	}
 
 	private void forceActionbarOverflowMenu() {
-		// Force overflow control for action bar even if the device has got a physical menu button.
+		// Force overflow control for action bar even if the device has got a
+		// physical menu button.
 		try {
 			ViewConfiguration config = ViewConfiguration.get(this);
-			Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-			if(menuKeyField != null) {
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
 				menuKeyField.setAccessible(true);
 				menuKeyField.setBoolean(config, false);
 			}
