@@ -64,7 +64,8 @@ public class DisplayEvent extends SherlockActivity {
 		DBAdapter adapter = new DBAdapter(getBaseContext());
 		adapter.open();
 		isFavorite = adapter.isFavorite(event);
-		Log.v(getClass().getName(),isFavorite?"Is a favorite":"Isn't a favorite");
+		Log.v(getClass().getName(), isFavorite ? "Is a favorite"
+				: "Isn't a favorite");
 		adapter.close();
 
 		// No event? stop this activity
@@ -88,11 +89,11 @@ public class DisplayEvent extends SherlockActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case android.R.id.home:
-				onBackPressed();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -111,7 +112,7 @@ public class DisplayEvent extends SherlockActivity {
 	/**
 	 * Gets the {@link Event} that was specified through the intent or null if
 	 * no or wrongly specified event.
-	 *
+	 * 
 	 * @return The Event or null.
 	 */
 	private Event getEvent() {
@@ -138,7 +139,7 @@ public class DisplayEvent extends SherlockActivity {
 	/**
 	 * Helper method to set the text of the {@link TextView} identified by
 	 * specified id.
-	 *
+	 * 
 	 * @param id
 	 *            Id of the view (must be a TextView)
 	 * @param value
@@ -155,7 +156,8 @@ public class DisplayEvent extends SherlockActivity {
 		tv.setText(Html.fromHtml(value));
 	}
 
-	public void prefetchImageViewImageAndShowIt(final String url, final String filename) {
+	public void prefetchImageViewImageAndShowIt(final String url,
+			final String filename) {
 		Thread t = new Thread() {
 			public void run() {
 				try {
@@ -168,10 +170,14 @@ public class DisplayEvent extends SherlockActivity {
 
 				if (roomImageDrawable == null) {
 					try {
-						// there are fallback room drawables, check if we have a suitable one
-						int resId = getResources().getIdentifier("room_"+filename, "drawable", getPackageName());
+						// there are fallback room drawables, check if we have a
+						// suitable one
+						int resId = getResources().getIdentifier(
+								"room_" + filename, "drawable",
+								getPackageName());
 						roomImageDrawable = getResources().getDrawable(resId);
-					} catch(NotFoundException $e) {}
+					} catch (NotFoundException $e) {
+					}
 				}
 
 				Message msg = Message.obtain();
@@ -185,7 +191,7 @@ public class DisplayEvent extends SherlockActivity {
 
 	/**
 	 * Loads the contents of the event with into the gui.
-	 *
+	 * 
 	 * @param event
 	 *            The event to show
 	 */
@@ -201,16 +207,20 @@ public class DisplayEvent extends SherlockActivity {
 		setTextViewText(R.id.event_title, event.getTitle());
 		setTextViewText(R.id.event_track, event.getTrack());
 		setTextViewText(R.id.event_room, event.getRoom());
-		setTextViewText(R.id.event_time, StringUtil.datesToString(event
-				.getStart(), event.getDuration()));
-		setTextViewText(R.id.event_speaker, StringUtil.personsToString(event
-				.getPersons()));
+		setTextViewText(R.id.event_time,
+				StringUtil.datesToString(event.getStart(), event.getDuration()));
+		setTextViewText(R.id.event_speaker,
+				StringUtil.personsToString(event.getPersons()));
 		setTextViewText(R.id.event_abstract, eventAbstract);
 		setTextViewText(R.id.event_description, eventDescription);
 
 		// setImageViewImage(R.id.room_image,
 		// StringUtil.roomNameToURL(event.getRoom()));
-		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()),
+		// FIXME: this does NOT fetch room location images correctly, as they
+		// were not available on the website in 2013. They should be taken from
+		// the app resources anyway.
+		prefetchImageViewImageAndShowIt(
+				StringUtil.roomNameToURL(event.getRoom()),
 				StringUtil.roomNameToFilename(event.getRoom()));
 	}
 
@@ -247,8 +257,8 @@ public class DisplayEvent extends SherlockActivity {
 		String extra = "I'm attending '" + event.getTitle() + "' (Day "
 				+ (event.getDayindex()) + " at "
 				+ String.format("%02d", event.getStart().getHours()) + ":"
-				+ String.format("%02d", event.getStart().getMinutes()) + " @ " + event.getRoom()
-				+ ") #fosdem";
+				+ String.format("%02d", event.getStart().getMinutes()) + " @ "
+				+ event.getRoom() + ") #fosdem";
 		long currentTime = Calendar.getInstance().getTimeInMillis();
 		if (currentTime >= event.getStart().getTime()
 				&& currentTime <= (event.getStart().getTime() + ((event
@@ -260,11 +270,13 @@ public class DisplayEvent extends SherlockActivity {
 	}
 
 	private void forceActionbarOverflowMenu() {
-		// Force overflow control for action bar even if the device has got a physical menu button.
+		// Force overflow control for action bar even if the device has got a
+		// physical menu button.
 		try {
 			ViewConfiguration config = ViewConfiguration.get(this);
-			Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-			if(menuKeyField != null) {
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			if (menuKeyField != null) {
 				menuKeyField.setAccessible(true);
 				menuKeyField.setBoolean(config, false);
 			}
@@ -289,11 +301,13 @@ public class DisplayEvent extends SherlockActivity {
 		if (isFavorite) {
 			// Unmark
 			db.deleteBookmark(event.getId());
-			UIUtil.showToast(mContext, mContext.getString(R.string.favorites_event_removed));
+			UIUtil.showToast(mContext,
+					mContext.getString(R.string.favorites_event_removed));
 		} else {
 			// Mark
 			db.addBookmark(event);
-			UIUtil.showToast(mContext, mContext.getString(R.string.favorites_event_added));
+			UIUtil.showToast(mContext,
+					mContext.getString(R.string.favorites_event_added));
 		}
 		db.close();
 		isFavorite = !isFavorite;
